@@ -6,8 +6,5 @@ import org.springframework.stereotype.Service
 
 @Service
 class MemberService(private val memberRepository: MemberRepository) {
-    fun insertMember(member: Member): Member {
-        memberRepository.save(member)
-        return memberRepository.findByUsername(member.username) ?: throw NoSuchElementException("Member not found")
-    }
+    fun insertMember(member: Member) = memberRepository.save(member)
 }
