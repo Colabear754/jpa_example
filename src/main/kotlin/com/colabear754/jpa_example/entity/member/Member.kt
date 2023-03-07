@@ -1,10 +1,7 @@
 package com.colabear754.jpa_example.entity.member
 
 import io.swagger.v3.oas.annotations.media.Schema
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
+import jakarta.persistence.*
 
 @Entity
 class Member(
@@ -12,8 +9,14 @@ class Member(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Schema(hidden = true)
     val id: Long?,
+    @Column(nullable = false)
     @Schema(description = "이름", example = "홍길동")
-    val username: String,
+    var username: String,
     @Schema(description = "나이", example = "20")
-    val age: Int
-)
+    var age: Int
+) {
+    fun update(newMember: Member) {
+        this.username = newMember.username
+        this.age = newMember.age
+    }
+}
