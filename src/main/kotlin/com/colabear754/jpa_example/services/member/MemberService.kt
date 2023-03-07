@@ -8,6 +8,9 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class MemberService(private val memberRepository: MemberRepository) {
     @Transactional
+    fun getMembers(): List<Member> = memberRepository.findAll()
+
+    @Transactional
     fun insertMember(member: Member) = memberRepository.save(member)
 
     @Transactional

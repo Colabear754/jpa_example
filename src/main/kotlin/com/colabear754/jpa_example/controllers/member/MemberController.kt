@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/member")
 class MemberController(private val memberService: MemberService) {
+    @GetMapping
+    fun getMembers() = memberService.getMembers()
+
     @PostMapping("/regist")
     fun insertMember(@RequestBody member: Member) = memberService.insertMember(member)
 
