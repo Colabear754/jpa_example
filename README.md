@@ -6,7 +6,8 @@
 ### 환경 정보
  - Kotlin 1.7.22(JDK 19)
  - Spring Boot 3.0.3
- - h2 DB
+ - h2 DB(테스트 코드)
+ - MySQL 8.0.31(프로덕션 코드)
  - Springdoc 2.0.2
 
 ### 주의 사항
