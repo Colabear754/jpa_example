@@ -22,4 +22,4 @@ implementation 'org.springframework.boot:spring-boot-starter-validation'
 
 ### 참고
  - [인프런 JPA 강의](https://www.inflearn.com/course/ORM-JPA-Basic/dashboard)
- - [Springdoc](https://springdoc.org/)
+ - [Springdoc](https://springdoc.org/v2)
