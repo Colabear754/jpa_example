@@ -1,7 +1,5 @@
 spring:
   jpa:
-    hibernate:
-      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
@@ -24,6 +22,9 @@ springdoc:
 ---
 
 spring:
+  jpa:
+    hibernate:
+      ddl-auto: create
   config:
     activate:
       on-profile: test
@@ -40,6 +41,9 @@ spring:
 ---
 
 spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
   config:
     activate:
       on-profile: prod
