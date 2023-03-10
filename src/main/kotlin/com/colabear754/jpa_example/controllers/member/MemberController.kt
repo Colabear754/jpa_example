@@ -15,4 +15,7 @@ class MemberController(private val memberService: MemberService) {
 
     @PutMapping("/update/{id}")
     fun updateMember(@PathVariable id: Long, @RequestBody newMember: Member) = memberService.updateMember(id, newMember)
+
+    @DeleteMapping("/delete/{id}")
+    fun deleteMember(@PathVariable id: Long) = memberService.deleteMember(id)
 }

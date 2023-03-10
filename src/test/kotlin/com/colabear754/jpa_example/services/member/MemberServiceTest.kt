@@ -45,4 +45,15 @@ class MemberServiceTest @Autowired constructor(
         assertThat(updatedMember.username).isEqualTo("BBB")
         assertThat(updatedMember.age).isEqualTo(30)
     }
+
+    @Test
+    fun 회원삭제() {
+        // given
+        val savedMember = memberRepository.save(Member(null, "AAA", 20))
+        // when
+        memberService.deleteMember(savedMember.id!!)
+        // then
+        val savedMembers = memberRepository.findAll()
+        assertThat(savedMembers).hasSize(0)
+    }
 }
