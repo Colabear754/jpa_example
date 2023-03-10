@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 class MemberService(private val memberRepository: MemberRepository) {
-    @Transactional
+    @Transactional(readOnly = true)
     fun getMembers(): List<Member> = memberRepository.findAll()
 
     @Transactional
@@ -19,4 +19,7 @@ class MemberService(private val memberRepository: MemberRepository) {
         member.update(newMember)
         return member
     }
+
+    @Transactional
+    fun deleteMember(id: Long) = memberRepository.deleteById(id)
 }
