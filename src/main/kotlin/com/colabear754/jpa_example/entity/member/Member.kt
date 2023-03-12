@@ -11,12 +11,12 @@ class Member(
     val id: Long?,
     @Column(nullable = false)
     @Schema(description = "이름", example = "홍길동")
-    var username: String,
+    var name: String,
     @Schema(description = "나이", example = "20")
     var age: Int
 ) {
     fun update(newMember: Member) {
-        this.username = newMember.username
+        this.name = newMember.name
         this.age = newMember.age
     }
 }
