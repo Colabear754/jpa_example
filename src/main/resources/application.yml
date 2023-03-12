@@ -22,12 +22,12 @@ springdoc:
 ---
 
 spring:
-  jpa:
-    hibernate:
-      ddl-auto: create
   config:
     activate:
       on-profile: test
+  jpa:
+    hibernate:
+      ddl-auto: create
   datasource:
     url: jdbc:h2:mem:jpa_example
     username: sa
@@ -41,12 +41,12 @@ spring:
 ---
 
 spring:
-  jpa:
-    hibernate:
-      ddl-auto: update
   config:
     activate:
       on-profile: prod
+  jpa:
+    hibernate:
+      ddl-auto: update
   datasource:
     url:
     username:
