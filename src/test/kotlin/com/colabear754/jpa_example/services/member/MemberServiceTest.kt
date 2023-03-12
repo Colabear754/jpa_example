@@ -1,7 +1,7 @@
 package com.colabear754.jpa_example.services.member
 
 import com.colabear754.jpa_example.entity.member.Member
-import com.colabear754.jpa_example.entity.member.MemberRepository
+import com.colabear754.jpa_example.repository.member.MemberRepository
 import org.assertj.core.api.AssertionsForInterfaceTypes.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.*
