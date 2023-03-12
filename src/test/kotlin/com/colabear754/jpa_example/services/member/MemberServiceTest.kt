@@ -30,7 +30,7 @@ class MemberServiceTest @Autowired constructor(
         // then
         val savedMembers = memberRepository.findAll()
         assertThat(savedMembers).hasSize(1)
-        assertThat(savedMembers[0].username).isEqualTo("AAA")
+        assertThat(savedMembers[0].name).isEqualTo("AAA")
         assertThat(savedMembers[0].age).isEqualTo(20)
     }
 
@@ -41,8 +41,8 @@ class MemberServiceTest @Autowired constructor(
         // when
         val updatedMember = memberService.updateMember(savedMember.id!!, Member(null, "BBB", 30))
         // then
-        assertThat(updatedMember.id).isEqualTo(1L)
-        assertThat(updatedMember.username).isEqualTo("BBB")
+        assertThat(updatedMember.id).isEqualTo(savedMember.id!!)
+        assertThat(updatedMember.name).isEqualTo("BBB")
         assertThat(updatedMember.age).isEqualTo(30)
     }
 
