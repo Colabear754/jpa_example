@@ -4,13 +4,14 @@ import com.colabear754.jpa_example.common.UserRole
 import io.swagger.v3.oas.annotations.media.Schema
 import jakarta.persistence.*
 import java.time.LocalDate
+import java.util.UUID
 
 @Entity
 class Member(
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Schema(hidden = true)
-    val id: Long?,
+    val id: UUID?,
     @Column(nullable = false)
     @Schema(description = "이름", example = "홍길동")
     var name: String,
