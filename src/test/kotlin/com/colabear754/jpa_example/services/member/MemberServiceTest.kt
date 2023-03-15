@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
 import java.time.LocalDate
+import java.util.UUID
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -63,5 +64,17 @@ class MemberServiceTest @Autowired constructor(
         // then
         val savedMembers = memberRepository.findAll()
         assertThat(savedMembers).hasSize(0)
+    }
+
+    @Test
+    fun `존재하지 않는 회원을 수정하려고 하면 예외가 발생한다`() {
+        // given
+        val id = UUID.randomUUID()
+        // when
+        val exception = assertThrows(NoSuchElementException::class.java) {
+            memberService.updateMember(id, Member(null, "AAA", 30, UserRole.ADMIN, "존재하지 않는 유저 수정"))
+        }
+        // then
+        assertThat(exception.message).isEqualTo("${id}에 해당하는 회원 정보를 찾을 수 없습니다.")
     }
 }
