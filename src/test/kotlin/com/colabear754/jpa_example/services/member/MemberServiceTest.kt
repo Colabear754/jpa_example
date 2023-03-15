@@ -1,6 +1,5 @@
 package com.colabear754.jpa_example.services.member
 
-import com.colabear754.jpa_example.common.UserRole
 import com.colabear754.jpa_example.entity.member.Member
 import com.colabear754.jpa_example.repository.member.MemberRepository
 import org.assertj.core.api.AssertionsForInterfaceTypes.assertThat
@@ -27,7 +26,7 @@ class MemberServiceTest @Autowired constructor(
     @Test
     fun 회원추가() {
         // given
-        val member = Member(null, "AAA", 20, UserRole.ADMIN, null)
+        val member = Member(null, "AAA", 20, "12345", "서울시 강남구", "010-1234-5678")
         // when
         memberService.insertMember(member)
         // then
@@ -35,30 +34,30 @@ class MemberServiceTest @Autowired constructor(
         assertThat(savedMembers).hasSize(1)
         assertThat(savedMembers[0].name).isEqualTo("AAA")
         assertThat(savedMembers[0].age).isEqualTo(20)
-        assertThat(savedMembers[0].role).isEqualTo(UserRole.ADMIN)
-        assertThat(savedMembers[0].remark).isNull()
-        assertThat(savedMembers[0].createDate).isEqualTo(LocalDate.now())
+        assertThat(savedMembers[0].zipCode).isEqualTo("12345")
+        assertThat(savedMembers[0].address).isEqualTo("서울시 강남구")
+        assertThat(savedMembers[0].phoneNumber).isEqualTo("010-1234-5678")
     }
 
     @Test
     fun 회원수정() {
         // given
-        val savedMember = memberRepository.save(Member(null, "AAA", 20, UserRole.USER, null))
+        val savedMember = memberRepository.save(Member(null, "AAA", 20, "12345", "서울시 강남구", "010-1234-5678"))
         // when
-        val updatedMember = memberService.updateMember(savedMember.id!!, Member(null, "BBB", 30, UserRole.ADMIN, "새로운 관리자"))
+        val updatedMember = memberService.updateMember(savedMember.id!!, Member(null, "BBB", 30, "67890", "서울시 중구", "010-5678-1234"))
         // then
         assertThat(updatedMember.id).isEqualTo(savedMember.id!!)
         assertThat(updatedMember.name).isEqualTo("BBB")
         assertThat(updatedMember.age).isEqualTo(30)
-        assertThat(updatedMember.role).isEqualTo(UserRole.ADMIN)
-        assertThat(updatedMember.remark).isEqualTo("새로운 관리자")
-        assertThat(updatedMember.updateDate).isEqualTo(LocalDate.now())
+        assertThat(updatedMember.zipCode).isEqualTo("67890")
+        assertThat(updatedMember.address).isEqualTo("서울시 중구")
+        assertThat(updatedMember.phoneNumber).isEqualTo("010-5678-1234")
     }
 
     @Test
     fun 회원삭제() {
         // given
-        val savedMember = memberRepository.save(Member(null, "AAA", 20, UserRole.USER, null))
+        val savedMember = memberRepository.save(Member(null, "AAA", 20, "12345", "서울시 강남구", "010-1234-5678"))
         // when
         memberService.deleteMember(savedMember.id!!)
         // then
@@ -72,7 +71,7 @@ class MemberServiceTest @Autowired constructor(
         val id = UUID.randomUUID()
         // when
         val exception = assertThrows(NoSuchElementException::class.java) {
-            memberService.updateMember(id, Member(null, "AAA", 30, UserRole.ADMIN, "존재하지 않는 유저 수정"))
+            memberService.updateMember(id, Member(null, "BBB", 30, "67890", "서울시 중구", "010-5678-1234"))
         }
         // then
         assertThat(exception.message).isEqualTo("${id}에 해당하는 회원 정보를 찾을 수 없습니다.")
