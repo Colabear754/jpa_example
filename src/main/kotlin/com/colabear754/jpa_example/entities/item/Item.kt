@@ -1,4 +1,4 @@
-package com.colabear754.jpa_example.entity.item
+package com.colabear754.jpa_example.entities.item
 
 import jakarta.persistence.*
 import java.util.*

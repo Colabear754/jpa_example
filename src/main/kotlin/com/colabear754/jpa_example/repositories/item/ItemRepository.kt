@@ -1,6 +1,6 @@
-package com.colabear754.jpa_example.repository.member.item
+package com.colabear754.jpa_example.repositories.item
 
-import com.colabear754.jpa_example.entity.item.Item
+import com.colabear754.jpa_example.entities.item.Item
 import org.springframework.data.jpa.repository.JpaRepository
 import java.util.*
 

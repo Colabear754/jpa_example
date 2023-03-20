@@ -1,7 +1,7 @@
-package com.colabear754.jpa_example.entity.member.order
+package com.colabear754.jpa_example.entities.member.order
 
 import com.colabear754.jpa_example.common.OrderStatus
-import com.colabear754.jpa_example.entity.member.Member
+import com.colabear754.jpa_example.entities.member.Member
 import jakarta.persistence.*
 import java.time.LocalDate
 import java.util.*

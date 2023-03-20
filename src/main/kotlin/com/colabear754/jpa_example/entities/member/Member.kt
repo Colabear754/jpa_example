@@ -1,4 +1,4 @@
-package com.colabear754.jpa_example.entity.member
+package com.colabear754.jpa_example.entities.member
 
 import io.swagger.v3.oas.annotations.media.Schema
 import jakarta.persistence.*

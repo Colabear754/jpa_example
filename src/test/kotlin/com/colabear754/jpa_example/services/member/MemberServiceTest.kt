@@ -1,7 +1,7 @@
 package com.colabear754.jpa_example.services.member
 
-import com.colabear754.jpa_example.entity.member.Member
-import com.colabear754.jpa_example.repository.member.MemberRepository
+import com.colabear754.jpa_example.entities.member.Member
+import com.colabear754.jpa_example.repositories.member.MemberRepository
 import org.assertj.core.api.AssertionsForInterfaceTypes.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.*
@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
-import java.time.LocalDate
 import java.util.UUID
 
 @SpringBootTest
