@@ -1,7 +1,12 @@
 package com.colabear754.jpa_example.services.member
 
+import com.colabear754.jpa_example.common.OrderStatus
 import com.colabear754.jpa_example.entities.member.Member
+import com.colabear754.jpa_example.entities.member.order.Orders
 import com.colabear754.jpa_example.repositories.member.MemberRepository
+import com.colabear754.jpa_example.repositories.member.order.OrderRepository
+import com.colabear754.jpa_example.services.order.OrderService
+import com.colabear754.jpa_example.util.TransactionHelper
 import org.assertj.core.api.AssertionsForInterfaceTypes.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.*
@@ -9,16 +14,21 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
+import java.time.LocalDate
 import java.util.UUID
 
 @SpringBootTest
 @ActiveProfiles("test")
 class MemberServiceTest @Autowired constructor(
     private val memberService: MemberService,
-    private val memberRepository: MemberRepository
+    private val memberRepository: MemberRepository,
+    private val orderService: OrderService,
+    private val orderRepository: OrderRepository,
+    private val transactionHelper: TransactionHelper
 ) {
     @AfterEach
     fun clear() {
+        orderRepository.deleteAll()
         memberRepository.deleteAll()
     }
 
@@ -74,5 +84,22 @@ class MemberServiceTest @Autowired constructor(
         }
         // then
         assertThat(exception.message).isEqualTo("${id}에 해당하는 회원 정보를 찾을 수 없습니다.")
+    }
+
+    @Test
+    fun `회원의 주문내역 조회`() {
+        // given
+        val member = memberRepository.save(Member(null, "AAA", 20, "12345", "서울시 강남구", "010-1234-5678"))
+        orderService.newOrder(Orders(null, member, LocalDate.now(), OrderStatus.ORDER))
+        orderService.newOrder(Orders(null, member, LocalDate.now(), OrderStatus.ORDER))
+        orderService.newOrder(Orders(null, member, LocalDate.now(), OrderStatus.ORDER))
+
+        transactionHelper.execute {
+            // when
+            val users = memberRepository.findAll()
+            // then
+            assertThat(users).hasSize(1)
+            assertThat(memberService.getMemberOrderHistories(users[0].id!!)).hasSize(3)
+        }
     }
 }

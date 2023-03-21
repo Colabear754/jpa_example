@@ -1,5 +1,6 @@
 package com.colabear754.jpa_example.entities.member
 
+import com.colabear754.jpa_example.entities.member.order.Orders
 import io.swagger.v3.oas.annotations.media.Schema
 import jakarta.persistence.*
 import java.util.UUID
@@ -23,7 +24,10 @@ class Member(
     var address: String?,
     @Schema(description = "전화번호", example = "010-1234-5678")
     @Column(nullable = false)
-    var phoneNumber: String
+    var phoneNumber: String,
+    @Schema(hidden = true)
+    @OneToMany(mappedBy = "member")
+    var orders: MutableList<Orders> = mutableListOf()
 ) {
     fun update(newMember: Member) {
         this.name = newMember.name
