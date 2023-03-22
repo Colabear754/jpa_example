@@ -90,16 +90,15 @@ class MemberServiceTest @Autowired constructor(
     fun `회원의 주문내역 조회`() {
         // given
         val member = memberRepository.save(Member(null, "AAA", 20, "12345", "서울시 강남구", "010-1234-5678"))
-        orderService.newOrder(Orders(null, member, LocalDate.now(), OrderStatus.ORDER))
-        orderService.newOrder(Orders(null, member, LocalDate.now(), OrderStatus.ORDER))
-        orderService.newOrder(Orders(null, member, LocalDate.now(), OrderStatus.ORDER))
+        orderService.newOrder(Orders(null, member))
+        orderService.newOrder(Orders(null, member))
+        orderService.newOrder(Orders(null, member))
 
         transactionHelper.execute {
             // when
-            val users = memberRepository.findAll()
+            val orders = orderRepository.findByMemberId(member.id!!)
             // then
-            assertThat(users).hasSize(1)
-            assertThat(memberService.getMemberOrderHistories(users[0].id!!)).hasSize(3)
+            assertThat(orders).hasSize(3)
         }
     }
 }

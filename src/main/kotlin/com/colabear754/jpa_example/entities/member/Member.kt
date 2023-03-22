@@ -24,10 +24,7 @@ class Member(
     var address: String?,
     @Schema(description = "전화번호", example = "010-1234-5678")
     @Column(nullable = false)
-    var phoneNumber: String,
-    @Schema(hidden = true)
-    @OneToMany(mappedBy = "member")
-    var orders: MutableList<Orders> = mutableListOf()
+    var phoneNumber: String
 ) {
     fun update(newMember: Member) {
         this.name = newMember.name
