@@ -9,7 +9,7 @@ class OrderItem(
     @ManyToOne
     val item: Item,
     @ManyToOne
-    val order: Orders,
+    val order: Order,
     val orderPrice: Int,
     val count: Int,
     @Id

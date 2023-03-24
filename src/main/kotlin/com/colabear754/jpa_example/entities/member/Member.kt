@@ -1,6 +1,5 @@
 package com.colabear754.jpa_example.entities.member
 
-import com.colabear754.jpa_example.entities.member.order.Orders
 import io.swagger.v3.oas.annotations.media.Schema
 import jakarta.persistence.*
 import java.util.UUID

@@ -1,8 +1,7 @@
 package com.colabear754.jpa_example.services.member
 
-import com.colabear754.jpa_example.common.OrderStatus
 import com.colabear754.jpa_example.entities.member.Member
-import com.colabear754.jpa_example.entities.member.order.Orders
+import com.colabear754.jpa_example.entities.member.order.Order
 import com.colabear754.jpa_example.repositories.member.MemberRepository
 import com.colabear754.jpa_example.repositories.member.order.OrderRepository
 import com.colabear754.jpa_example.services.order.OrderService
@@ -14,7 +13,6 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
-import java.time.LocalDate
 import java.util.UUID
 
 @SpringBootTest
@@ -90,9 +88,9 @@ class MemberServiceTest @Autowired constructor(
     fun `회원의 주문내역 조회`() {
         // given
         val member = memberRepository.save(Member(null, "AAA", 20, "12345", "서울시 강남구", "010-1234-5678"))
-        orderService.newOrder(Orders(null, member))
-        orderService.newOrder(Orders(null, member))
-        orderService.newOrder(Orders(null, member))
+        orderService.newOrder(Order(member))
+        orderService.newOrder(Order(member))
+        orderService.newOrder(Order(member))
 
         transactionHelper.execute {
             // when
