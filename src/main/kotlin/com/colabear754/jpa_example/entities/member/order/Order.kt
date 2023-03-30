@@ -1,6 +1,7 @@
 package com.colabear754.jpa_example.entities.member.order
 
 import com.colabear754.jpa_example.common.OrderStatus
+import com.colabear754.jpa_example.entities.BaseEntity
 import com.colabear754.jpa_example.entities.member.Member
 import com.colabear754.jpa_example.entities.member.order.delivery.Delivery
 import jakarta.persistence.*
@@ -22,8 +23,10 @@ class Order(
     var status: OrderStatus = OrderStatus.ORDER,
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    val id: UUID? = null
-) {
+    val id: UUID? = null,
+    createdBy: String? = null,
+    lastModifiedBy: String? = null
+) : BaseEntity(createdBy = createdBy, lastModifiedBy = lastModifiedBy) {
     fun cancel() {
         if (status == OrderStatus.ORDER) {
             status = OrderStatus.CANCEL
