@@ -21,4 +21,22 @@ abstract class Item(
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     val id: UUID? = null
-) : BaseEntity(createdBy = createdBy, lastModifiedBy =  lastModifiedBy)
+) : BaseEntity(createdBy = createdBy, lastModifiedBy =  lastModifiedBy) {
+    fun addStock(quantity: Int) {
+        stockQuantity += quantity
+    }
+
+    fun removeStock(quantity: Int) {
+        val restStock = stockQuantity - quantity
+        if (restStock < 0) {
+            throw IllegalArgumentException("재고가 부족합니다. 현재 재고: $stockQuantity, 요청 수량: $quantity")
+        }
+        stockQuantity = restStock
+    }
+
+    fun change(item: Item) {
+        this.name = item.name
+        this.price = item.price
+        this.stockQuantity = item.stockQuantity
+    }
+}

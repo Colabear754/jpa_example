@@ -11,4 +11,10 @@ class Movie(
     var actor: String,
     createdBy: String,
     lastModifiedBy: String
-) : Item(name, price, stockQuantity, createdBy, lastModifiedBy)
+) : Item(name, price, stockQuantity, createdBy, lastModifiedBy) {
+    fun change(movie: Movie) {
+        super.change(movie)
+        this.director = movie.director
+        this.actor = movie.actor
+    }
+}

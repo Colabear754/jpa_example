@@ -11,4 +11,10 @@ class Book(
     var isbn: String,
     createdBy: String,
     lastModifiedBy: String,
-) : Item(name, price, stockQuantity, createdBy, lastModifiedBy)
+) : Item(name, price, stockQuantity, createdBy, lastModifiedBy) {
+    fun change(book: Book) {
+        this.author = book.author
+        this.isbn = book.isbn
+        super.change(book)
+    }
+}

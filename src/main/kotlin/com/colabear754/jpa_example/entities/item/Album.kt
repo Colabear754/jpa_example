@@ -11,4 +11,10 @@ class Album(
     var etc: String,
     createdBy: String,
     lastModifiedBy: String
-) : Item(name, price, stockQuantity, createdBy, lastModifiedBy)
+) : Item(name, price, stockQuantity, createdBy, lastModifiedBy) {
+    fun change(album: Album) {
+        this.artist = album.artist
+        this.etc = album.etc
+        super.change(album)
+    }
+}
