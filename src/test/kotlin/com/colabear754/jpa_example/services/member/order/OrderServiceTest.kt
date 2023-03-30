@@ -1,4 +1,4 @@
-package com.colabear754.jpa_example.services.order
+package com.colabear754.jpa_example.services.member.order
 
 import com.colabear754.jpa_example.common.OrderStatus
 import com.colabear754.jpa_example.entities.member.Member
