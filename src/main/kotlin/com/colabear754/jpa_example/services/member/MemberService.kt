@@ -25,7 +25,4 @@ class MemberService(private val memberRepository: MemberRepository, private val 
 
     @Transactional
     fun deleteMember(id: UUID) = memberRepository.deleteById(id)
-
-    @Transactional(readOnly = true)
-    fun getMemberOrderHistories(id: UUID) = orderRepository.findByMemberId(id)
 }
