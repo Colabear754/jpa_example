@@ -1,10 +1,8 @@
 package com.colabear754.jpa_example.services.member
 
 import com.colabear754.jpa_example.entities.member.Member
-import com.colabear754.jpa_example.entities.member.order.Order
 import com.colabear754.jpa_example.repositories.member.MemberRepository
 import com.colabear754.jpa_example.repositories.member.order.OrderRepository
-import com.colabear754.jpa_example.services.order.OrderService
 import com.colabear754.jpa_example.util.TransactionHelper
 import org.assertj.core.api.AssertionsForInterfaceTypes.assertThat
 import org.junit.jupiter.api.AfterEach
@@ -13,7 +11,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
-import java.util.UUID
+import java.util.*
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -80,6 +78,6 @@ class MemberServiceTest @Autowired constructor(
             memberService.updateMember(id, Member("BBB", 30, "67890", "서울시 중구", "010-5678-1234"))
         }
         // then
-        assertThat(exception.message).isEqualTo("${id}에 해당하는 회원 정보를 찾을 수 없습니다.")
+        assertThat(exception.message).isEqualTo("존재하지 않는 회원입니다.")
     }
 }
