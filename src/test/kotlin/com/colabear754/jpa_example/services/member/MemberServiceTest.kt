@@ -32,7 +32,7 @@ class MemberServiceTest @Autowired constructor(
     @Test
     fun 회원추가() {
         // given
-        val member = Member(null, "AAA", 20, "12345", "서울시 강남구", "010-1234-5678")
+        val member = Member("AAA", 20, "12345", "서울시 강남구", "010-1234-5678")
         // when
         memberService.insertMember(member)
         // then
@@ -48,9 +48,9 @@ class MemberServiceTest @Autowired constructor(
     @Test
     fun 회원수정() {
         // given
-        val savedMember = memberRepository.save(Member(null, "AAA", 20, "12345", "서울시 강남구", "010-1234-5678"))
+        val savedMember = memberRepository.save(Member("AAA", 20, "12345", "서울시 강남구", "010-1234-5678"))
         // when
-        val updatedMember = memberService.updateMember(savedMember.id!!, Member(null, "BBB", 30, "67890", "서울시 중구", "010-5678-1234"))
+        val updatedMember = memberService.updateMember(savedMember.id!!, Member("BBB", 30, "67890", "서울시 중구", "010-5678-1234"))
         // then
         assertThat(updatedMember.id).isEqualTo(savedMember.id!!)
         assertThat(updatedMember.name).isEqualTo("BBB")
@@ -63,7 +63,7 @@ class MemberServiceTest @Autowired constructor(
     @Test
     fun 회원삭제() {
         // given
-        val savedMember = memberRepository.save(Member(null, "AAA", 20, "12345", "서울시 강남구", "010-1234-5678"))
+        val savedMember = memberRepository.save(Member("AAA", 20, "12345", "서울시 강남구", "010-1234-5678"))
         // when
         memberService.deleteMember(savedMember.id!!)
         // then
@@ -77,7 +77,7 @@ class MemberServiceTest @Autowired constructor(
         val id = UUID.randomUUID()
         // when
         val exception = assertThrows(NoSuchElementException::class.java) {
-            memberService.updateMember(id, Member(null, "BBB", 30, "67890", "서울시 중구", "010-5678-1234"))
+            memberService.updateMember(id, Member("BBB", 30, "67890", "서울시 중구", "010-5678-1234"))
         }
         // then
         assertThat(exception.message).isEqualTo("${id}에 해당하는 회원 정보를 찾을 수 없습니다.")
