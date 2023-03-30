@@ -11,4 +11,4 @@ class Book(
     var isbn: String,
     createdBy: String,
     lastModifiedBy: String,
-) : BaseItem(name, price, stockQuantity, createdBy, lastModifiedBy)
+) : Item(name, price, stockQuantity, createdBy, lastModifiedBy)

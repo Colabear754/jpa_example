@@ -1,6 +1,6 @@
 package com.colabear754.jpa_example.entities.item.category
 
-import com.colabear754.jpa_example.entities.item.BaseItem
+import com.colabear754.jpa_example.entities.item.Item
 import jakarta.persistence.*
 
 @Entity
@@ -14,7 +14,7 @@ class Category(
         joinColumns = [JoinColumn(name = "category_id")],
         inverseJoinColumns = [JoinColumn(name = "item_id")]
     )
-    val items: MutableList<BaseItem> = mutableListOf(),
+    val items: MutableList<Item> = mutableListOf(),
     @OneToMany(mappedBy = "parent")
     val children: MutableList<Category> = mutableListOf(),
     @Id

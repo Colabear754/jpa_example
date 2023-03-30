@@ -3,12 +3,11 @@ package com.colabear754.jpa_example.entities.item
 import com.colabear754.jpa_example.entities.BaseEntity
 import com.colabear754.jpa_example.entities.item.category.Category
 import jakarta.persistence.*
-import java.time.LocalDateTime
 import java.util.*
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-abstract class BaseItem(
+abstract class Item(
     @Column(nullable = false)
     var name: String,
     @Column(nullable = false)

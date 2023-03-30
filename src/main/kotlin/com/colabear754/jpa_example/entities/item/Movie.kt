@@ -11,4 +11,4 @@ class Movie(
     var actor: String,
     createdBy: String,
     lastModifiedBy: String
-) : BaseItem(name, price, stockQuantity, createdBy, lastModifiedBy)
+) : Item(name, price, stockQuantity, createdBy, lastModifiedBy)

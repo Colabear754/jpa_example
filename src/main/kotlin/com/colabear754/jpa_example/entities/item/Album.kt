@@ -11,4 +11,4 @@ class Album(
     var etc: String,
     createdBy: String,
     lastModifiedBy: String
-) : BaseItem(name, price, stockQuantity, createdBy, lastModifiedBy)
+) : Item(name, price, stockQuantity, createdBy, lastModifiedBy)
