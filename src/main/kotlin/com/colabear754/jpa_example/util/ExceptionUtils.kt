@@ -7,4 +7,4 @@ fun fail(message: String): Nothing {
     throw NoSuchElementException(message)
 }
 
-inline fun <reified T, ID> CrudRepository<T, ID>.findByIdOrThrow(id: ID): T = findByIdOrNull(id) ?: fail("${id}에 해당하는 회원 정보를 찾을 수 없습니다.")
+inline fun <reified T, ID> CrudRepository<T, ID>.findByIdOrThrow(id: ID, message: String = "해당 ID의 데이터가 존재하지 않습니다."): T = findByIdOrNull(id) ?: fail(message)

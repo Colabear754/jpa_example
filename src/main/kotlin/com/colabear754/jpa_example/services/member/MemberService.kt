@@ -18,7 +18,7 @@ class MemberService(private val memberRepository: MemberRepository, private val 
 
     @Transactional
     fun updateMember(id: UUID, newMember: Member): Member {
-        val member = memberRepository.findByIdOrThrow(id)
+        val member = memberRepository.findByIdOrThrow(id, "존재하지 않는 회원입니다.")
         member.update(newMember)
         return member
     }
