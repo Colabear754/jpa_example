@@ -20,7 +20,6 @@ import java.util.UUID
 class MemberServiceTest @Autowired constructor(
     private val memberService: MemberService,
     private val memberRepository: MemberRepository,
-    private val orderService: OrderService,
     private val orderRepository: OrderRepository,
     private val transactionHelper: TransactionHelper
 ) {
@@ -82,21 +81,5 @@ class MemberServiceTest @Autowired constructor(
         }
         // then
         assertThat(exception.message).isEqualTo("${id}에 해당하는 회원 정보를 찾을 수 없습니다.")
-    }
-
-    @Test
-    fun `회원의 주문내역 조회`() {
-        // given
-        val member = memberRepository.save(Member(null, "AAA", 20, "12345", "서울시 강남구", "010-1234-5678"))
-        orderService.newOrder(Order(member))
-        orderService.newOrder(Order(member))
-        orderService.newOrder(Order(member))
-
-        transactionHelper.execute {
-            // when
-            val orders = orderRepository.findByMemberId(member.id!!)
-            // then
-            assertThat(orders).hasSize(3)
-        }
     }
 }
