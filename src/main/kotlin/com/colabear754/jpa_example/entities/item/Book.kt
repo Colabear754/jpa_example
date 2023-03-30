@@ -7,8 +7,8 @@ class Book(
     name: String,
     price: Int,
     stockQuantity: Int = 1,
+    var author: String,
+    var isbn: String,
     createdBy: String,
     lastModifiedBy: String,
-    var author: String,
-    var isbn: String
 ) : BaseItem(name, price, stockQuantity, createdBy, lastModifiedBy)

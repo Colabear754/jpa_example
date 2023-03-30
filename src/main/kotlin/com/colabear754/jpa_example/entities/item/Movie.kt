@@ -7,8 +7,8 @@ class Movie(
     name: String,
     price: Int,
     stockQuantity: Int = 1,
-    createdBy: String,
-    lastModifiedBy: String,
     var director: String,
-    var actor: String
+    var actor: String,
+    createdBy: String,
+    lastModifiedBy: String
 ) : BaseItem(name, price, stockQuantity, createdBy, lastModifiedBy)

@@ -7,8 +7,8 @@ class Album(
     name: String,
     price: Int,
     stockQuantity: Int = 1,
-    createdBy: String,
-    lastModifiedBy: String,
     var artist: String,
-    var etc: String
+    var etc: String,
+    createdBy: String,
+    lastModifiedBy: String
 ) : BaseItem(name, price, stockQuantity, createdBy, lastModifiedBy)
