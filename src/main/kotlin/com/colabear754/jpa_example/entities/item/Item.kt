@@ -39,4 +39,8 @@ abstract class Item(
         this.price = item.price
         this.stockQuantity = item.stockQuantity
     }
+
+    override fun toString(): String {
+        return "name='$name', price=$price, stockQuantity=$stockQuantity"
+    }
 }

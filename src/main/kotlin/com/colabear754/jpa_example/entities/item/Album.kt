@@ -1,5 +1,6 @@
 package com.colabear754.jpa_example.entities.item
 
+import com.colabear754.jpa_example.util.typeMismatch
 import jakarta.persistence.Entity
 
 @Entity
@@ -12,9 +13,17 @@ class Album(
     createdBy: String,
     lastModifiedBy: String
 ) : Item(name, price, stockQuantity, createdBy, lastModifiedBy) {
-    fun change(album: Album) {
-        this.artist = album.artist
-        this.etc = album.etc
-        super.change(album)
+    override fun change(item: Item) {
+        if (item is Album) {
+            item.artist = item.artist
+            item.etc = item.etc
+            super.change(item)
+        } else {
+            typeMismatch("입력된 상품 정보가 앨범이 아닙니다.")
+        }
+    }
+
+    override fun toString(): String {
+        return "Album(${super.toString()}, artist='$artist', etc='$etc')"
     }
 }
