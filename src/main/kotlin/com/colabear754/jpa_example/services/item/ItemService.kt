@@ -8,6 +8,7 @@ import com.colabear754.jpa_example.repositories.item.MovieRepository
 import com.colabear754.jpa_example.util.findByIdOrThrow
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.util.*
 
 @Service
 class ItemService(
@@ -23,8 +24,8 @@ class ItemService(
     fun registNewItems(items: List<Item>): MutableList<Item> = itemRepository.saveAll(items)
 
     @Transactional
-    fun updateItem(item: Item) {
-        val savedItem = itemRepository.findByIdOrThrow(item.id, "존재하지 않는 상품입니다.")
+    fun updateItem(id: UUID, item: Item) {
+        val savedItem = itemRepository.findByIdOrThrow(id, "존재하지 않는 상품입니다.").typeCast()
         savedItem.change(item)
     }
 

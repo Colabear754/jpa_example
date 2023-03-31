@@ -2,6 +2,7 @@ package com.colabear754.jpa_example.entities.item
 
 import com.colabear754.jpa_example.entities.BaseEntity
 import com.colabear754.jpa_example.entities.item.category.Category
+import com.colabear754.jpa_example.util.typeMismatch
 import jakarta.persistence.*
 import java.util.*
 
@@ -21,7 +22,7 @@ abstract class Item(
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     val id: UUID? = null
-) : BaseEntity(createdBy = createdBy, lastModifiedBy =  lastModifiedBy) {
+) : BaseEntity(createdBy = createdBy, lastModifiedBy = lastModifiedBy) {
     fun addStock(quantity: Int) {
         stockQuantity += quantity
     }
@@ -38,6 +39,13 @@ abstract class Item(
         this.name = item.name
         this.price = item.price
         this.stockQuantity = item.stockQuantity
+    }
+
+    fun typeCast() = when (this) {
+        is Album -> this
+        is Book -> this
+        is Movie -> this
+        else -> typeMismatch("지원되지 않는 타입입니다.")
     }
 
     override fun toString(): String {
