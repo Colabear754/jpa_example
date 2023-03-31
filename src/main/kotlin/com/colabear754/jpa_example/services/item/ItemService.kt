@@ -25,7 +25,7 @@ class ItemService(
 
     @Transactional
     fun updateItem(id: UUID, item: Item) {
-        val savedItem = itemRepository.findByIdOrThrow(id, "존재하지 않는 상품입니다.").typeCast()
+        val savedItem = itemRepository.findByIdOrThrow(id, "존재하지 않는 상품입니다.")
         savedItem.change(item)
     }
 

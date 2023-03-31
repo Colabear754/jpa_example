@@ -15,8 +15,8 @@ class Movie(
 ) : Item(name, price, stockQuantity, createdBy, lastModifiedBy) {
     override fun change(item: Item) {
         if (item is Movie) {
-            item.director = item.director
-            item.actor = item.actor
+            this.director = item.director
+            this.actor = item.actor
             super.change(item)
         } else {
             typeMismatch("입력된 상품 정보가 영화가 아닙니다.")

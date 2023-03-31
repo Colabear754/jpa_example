@@ -15,8 +15,8 @@ class Book(
 ) : Item(name, price, stockQuantity, createdBy, lastModifiedBy) {
     override fun change(item: Item) {
         if (item is Book) {
-            item.author = item.author
-            item.isbn = item.isbn
+            this.author = item.author
+            this.isbn = item.isbn
             super.change(item)
         } else {
             typeMismatch("입력된 상품 정보가 책이 아닙니다.")

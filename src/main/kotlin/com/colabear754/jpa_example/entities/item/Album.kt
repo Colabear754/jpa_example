@@ -15,8 +15,8 @@ class Album(
 ) : Item(name, price, stockQuantity, createdBy, lastModifiedBy) {
     override fun change(item: Item) {
         if (item is Album) {
-            item.artist = item.artist
-            item.etc = item.etc
+            this.artist = item.artist
+            this.etc = item.etc
             super.change(item)
         } else {
             typeMismatch("입력된 상품 정보가 앨범이 아닙니다.")
