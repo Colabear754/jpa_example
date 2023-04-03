@@ -3,6 +3,7 @@ package com.colabear754.jpa_example.services.item
 import com.colabear754.jpa_example.entities.item.Album
 import com.colabear754.jpa_example.entities.item.Book
 import com.colabear754.jpa_example.entities.item.Movie
+import com.colabear754.jpa_example.exceptions.NotEnoughStockException
 import com.colabear754.jpa_example.repositories.item.AlbumRepository
 import com.colabear754.jpa_example.repositories.item.BookRepository
 import com.colabear754.jpa_example.repositories.item.ItemRepository
@@ -10,6 +11,7 @@ import com.colabear754.jpa_example.repositories.item.MovieRepository
 import com.colabear754.jpa_example.util.findByIdOrThrow
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 
@@ -94,5 +96,43 @@ class ItemServiceTest @Autowired constructor(
         assertThat(updatedAlbum.stockQuantity).isEqualTo(2)
         assertThat(updatedAlbum.artist).isEqualTo("newArtist")
         assertThat(updatedAlbum.etc).isEqualTo("newEtc")
+    }
+
+    @Test
+    fun 상품재입고() {
+        // given
+        val book = itemRepository.save(Book("album", 1000, 1, "artist", "etc", "createdBy", "lastModifiedBy"))
+        // when
+        val savedBook = itemRepository.findByIdOrThrow(book.id)
+        itemService.restock(savedBook.id!!, 10)
+        // then
+        val updatedBook = itemRepository.findByIdOrThrow(book.id) as Book
+        assertThat(updatedBook.stockQuantity).isEqualTo(11)
+    }
+
+    @Test
+    fun 상품판매() {
+        // given
+        val movie = itemRepository.save(Movie("album", 1000, 1, "artist", "etc", "createdBy", "lastModifiedBy"))
+        // when
+        val savedMovie = itemRepository.findByIdOrThrow(movie.id)
+        itemService.sell(savedMovie.id!!, 1)
+        // then
+        val updatedMovie = itemRepository.findByIdOrThrow(movie.id) as Movie
+        assertThat(updatedMovie.stockQuantity).isEqualTo(0)
+    }
+
+    @Test
+    fun `상품 수량이 부족할 때`() {
+        // given
+        val movie = itemRepository.save(Movie("album", 1000, 1, "artist", "etc", "createdBy", "lastModifiedBy"))
+        // when
+        // then
+        val savedMovie = itemRepository.findByIdOrThrow(movie.id)
+        assertThrows<NotEnoughStockException> {
+            itemService.sell(savedMovie.id!!, 2)
+        }.also {
+            assertThat(it.message).isEqualTo("재고가 부족합니다. 현재 재고: 1, 요청 수량: 2")
+        }
     }
 }

@@ -31,4 +31,16 @@ class ItemService(
 
     @Transactional(readOnly = true)
     fun getItems(): List<Item> = itemRepository.findAll()
+
+    @Transactional
+    fun restock(id: UUID, quantity: Int) {
+        val savedItem = itemRepository.findByIdOrThrow(id, "존재하지 않는 상품입니다.")
+        savedItem.addStock(quantity)
+    }
+
+    @Transactional
+    fun sell(id: UUID, quantity: Int) {
+        val savedItem = itemRepository.findByIdOrThrow(id, "존재하지 않는 상품입니다.")
+        savedItem.removeStock(quantity)
+    }
 }

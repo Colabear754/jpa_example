@@ -2,7 +2,7 @@ package com.colabear754.jpa_example.entities.item
 
 import com.colabear754.jpa_example.entities.BaseEntity
 import com.colabear754.jpa_example.entities.item.category.Category
-import com.colabear754.jpa_example.util.typeMismatch
+import com.colabear754.jpa_example.exceptions.NotEnoughStockException
 import jakarta.persistence.*
 import java.util.*
 
@@ -30,7 +30,7 @@ abstract class Item(
     fun removeStock(quantity: Int) {
         val restStock = stockQuantity - quantity
         if (restStock < 0) {
-            throw IllegalArgumentException("재고가 부족합니다. 현재 재고: $stockQuantity, 요청 수량: $quantity")
+            throw NotEnoughStockException("재고가 부족합니다. 현재 재고: $stockQuantity, 요청 수량: $quantity")
         }
         stockQuantity = restStock
     }
@@ -39,13 +39,6 @@ abstract class Item(
         this.name = item.name
         this.price = item.price
         this.stockQuantity = item.stockQuantity
-    }
-
-    fun typeCast() = when (this) {
-        is Album -> this
-        is Book -> this
-        is Movie -> this
-        else -> typeMismatch("지원되지 않는 타입입니다.")
     }
 
     override fun toString(): String {
