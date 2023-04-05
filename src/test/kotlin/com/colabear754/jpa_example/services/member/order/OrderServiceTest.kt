@@ -1,10 +1,16 @@
 package com.colabear754.jpa_example.services.member.order
 
 import com.colabear754.jpa_example.common.OrderStatus
+import com.colabear754.jpa_example.dto.member.order.OrderItemDTO
+import com.colabear754.jpa_example.entities.item.Album
+import com.colabear754.jpa_example.entities.item.Book
 import com.colabear754.jpa_example.entities.member.Member
 import com.colabear754.jpa_example.entities.member.order.Order
+import com.colabear754.jpa_example.repositories.item.ItemRepository
 import com.colabear754.jpa_example.repositories.member.MemberRepository
+import com.colabear754.jpa_example.repositories.member.order.OrderItemRepository
 import com.colabear754.jpa_example.repositories.member.order.OrderRepository
+import com.colabear754.jpa_example.util.TransactionHelper
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
@@ -15,11 +21,17 @@ import org.springframework.boot.test.context.SpringBootTest
 class OrderServiceTest @Autowired constructor(
     private val orderService: OrderService,
     private val orderRepository: OrderRepository,
-    private val memberRepository: MemberRepository
+    private val memberRepository: MemberRepository,
+    private val itemRepository: ItemRepository,
+    private val orderItemRepository: OrderItemRepository,
+    private val transactionHelper: TransactionHelper
 ) {
     @AfterEach
     fun clear() {
+        orderItemRepository.deleteAll()
+        itemRepository.deleteAll()
         orderRepository.deleteAll()
+        memberRepository.deleteAll()
     }
 
     @Test
@@ -40,12 +52,21 @@ class OrderServiceTest @Autowired constructor(
     fun 주문추가() {
         // given
         val order = Order(null)
+        val album = itemRepository.save(Album("album", 1000, 3, "artist", "etc", "createdBy", "lastModifiedBy"))
+        val book = itemRepository.save(Book("book", 1000, 1, "author", "isbn", "createdBy", "lastModifiedBy"))
         // when
-        orderService.newOrder(order)
+        orderService.newOrder(order, listOf(OrderItemDTO(album.id!!, 3), OrderItemDTO(book.id!!, 1)))
         // then
-        val savedOrders = orderRepository.findAll()
-        assertThat(savedOrders).hasSize(1)
-        assertThat(savedOrders[0].id).isEqualTo(order.id)
+        transactionHelper.execute {
+            val savedOrders = orderRepository.findAll()
+            assertThat(savedOrders).hasSize(1)
+            assertThat(savedOrders[0].id).isEqualTo(order.id)
+            assertThat(savedOrders[0].orderItems).hasSize(2)
+            assertThat(savedOrders[0].orderItems[0].item.name).isEqualTo("album")
+            assertThat(savedOrders[0].orderItems[1].item.name).isEqualTo("book")
+            assertThat(savedOrders[0].orderItems[0].orderPrice).isEqualTo(3000)
+            assertThat(savedOrders[0].orderItems[1].orderPrice).isEqualTo(1000)
+        }
     }
 
     @Test
@@ -68,7 +89,7 @@ class OrderServiceTest @Autowired constructor(
     fun 주문취소() {
         // given
         val order = Order(null)
-        orderService.newOrder(order)
+        orderRepository.save(order)
         // when
         orderService.cancelOrder(order.id!!)
         // then

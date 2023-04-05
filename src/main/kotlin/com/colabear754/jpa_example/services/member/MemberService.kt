@@ -11,6 +11,9 @@ import java.util.UUID
 @Service
 class MemberService(private val memberRepository: MemberRepository, private val orderRepository: OrderRepository) {
     @Transactional(readOnly = true)
+    fun getMember(id: UUID): Member = memberRepository.findByIdOrThrow(id, "존재하지 않는 회원입니다.")
+
+    @Transactional(readOnly = true)
     fun getMembers(): List<Member> = memberRepository.findAll()
 
     @Transactional

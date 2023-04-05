@@ -32,4 +32,8 @@ class Order(
             status = OrderStatus.CANCEL
         }
     }
+
+    fun addOrderItem(orderItem: OrderItem) {
+        orderItems.add(orderItem)
+    }
 }
