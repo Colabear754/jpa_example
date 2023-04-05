@@ -3,11 +3,11 @@ package com.colabear754.jpa_example.services.member
 import com.colabear754.jpa_example.entities.member.Member
 import com.colabear754.jpa_example.repositories.member.MemberRepository
 import com.colabear754.jpa_example.repositories.member.order.OrderRepository
-import com.colabear754.jpa_example.util.TransactionHelper
 import org.assertj.core.api.AssertionsForInterfaceTypes.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
@@ -18,8 +18,7 @@ import java.util.*
 class MemberServiceTest @Autowired constructor(
     private val memberService: MemberService,
     private val memberRepository: MemberRepository,
-    private val orderRepository: OrderRepository,
-    private val transactionHelper: TransactionHelper
+    private val orderRepository: OrderRepository
 ) {
     @AfterEach
     fun clear() {
@@ -74,7 +73,7 @@ class MemberServiceTest @Autowired constructor(
         // given
         val id = UUID.randomUUID()
         // when
-        val exception = assertThrows(NoSuchElementException::class.java) {
+        val exception = assertThrows<NoSuchElementException> {
             memberService.updateMember(id, Member("BBB", 30, "67890", "서울시 중구", "010-5678-1234"))
         }
         // then
