@@ -1,6 +1,8 @@
 package com.colabear754.jpa_example.services.item
 
 import com.colabear754.jpa_example.TestContainer
+import com.colabear754.jpa_example.common.ItemType
+import com.colabear754.jpa_example.dto.member.item.RegistItemRequest
 import com.colabear754.jpa_example.entities.item.Album
 import com.colabear754.jpa_example.entities.item.Book
 import com.colabear754.jpa_example.entities.item.Movie
@@ -35,9 +37,9 @@ class ItemServiceTest @Autowired constructor(
     @Test
     fun 상품추가() {
         // given
-        val album = Album("album", 1000, 1, "artist", "etc", "createdBy", "lastModifiedBy")
-        val book = Book("book", 1000, 1, "author", "isbn", "createdBy", "lastModifiedBy")
-        val movie = Movie("movie", 1000, 1, "director", "actor", "createdBy", "lastModifiedBy")
+        val album = RegistItemRequest("album", 1000, 1, ItemType.ALBUM, mutableMapOf("artist" to "artist", "etc" to "etc"), "createdBy")
+        val book = RegistItemRequest("book", 1000, 1, ItemType.BOOK, mutableMapOf("author" to "author", "isbn" to "isbn"), "createdBy")
+        val movie = RegistItemRequest("movie", 1000, 1, ItemType.MOVIE, mutableMapOf("director" to "director", "actor" to "actor"), "createdBy")
         // when
         itemService.registNewItem(album)
         itemService.registNewItem(book)
