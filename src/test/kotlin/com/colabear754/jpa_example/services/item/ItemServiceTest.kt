@@ -1,5 +1,6 @@
 package com.colabear754.jpa_example.services.item
 
+import com.colabear754.jpa_example.TestContainer
 import com.colabear754.jpa_example.entities.item.Album
 import com.colabear754.jpa_example.entities.item.Book
 import com.colabear754.jpa_example.entities.item.Movie
@@ -10,12 +11,12 @@ import com.colabear754.jpa_example.repositories.item.ItemRepository
 import com.colabear754.jpa_example.repositories.item.MovieRepository
 import com.colabear754.jpa_example.util.findByIdOrThrow
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
 
-@SpringBootTest
+@TestContainer
 class ItemServiceTest @Autowired constructor(
     private val itemService: ItemService,
     private val itemRepository: ItemRepository,
@@ -23,6 +24,14 @@ class ItemServiceTest @Autowired constructor(
     private val bookRepository: BookRepository,
     private val movieRepository: MovieRepository
 ) {
+    @AfterEach
+    fun clear() {
+        movieRepository.deleteAll()
+        bookRepository.deleteAll()
+        albumRepository.deleteAll()
+        itemRepository.deleteAll()
+    }
+
     @Test
     fun 상품추가() {
         // given

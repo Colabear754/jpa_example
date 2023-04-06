@@ -1,5 +1,6 @@
 package com.colabear754.jpa_example.services.member.order
 
+import com.colabear754.jpa_example.TestContainer
 import com.colabear754.jpa_example.common.OrderStatus
 import com.colabear754.jpa_example.dto.member.order.OrderItemDTO
 import com.colabear754.jpa_example.entities.item.Album
@@ -15,9 +16,8 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
 
-@SpringBootTest
+@TestContainer
 class OrderServiceTest @Autowired constructor(
     private val orderService: OrderService,
     private val orderRepository: OrderRepository,

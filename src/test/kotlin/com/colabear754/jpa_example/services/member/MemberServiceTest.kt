@@ -1,20 +1,17 @@
 package com.colabear754.jpa_example.services.member
 
+import com.colabear754.jpa_example.TestContainer
 import com.colabear754.jpa_example.entities.member.Member
 import com.colabear754.jpa_example.repositories.member.MemberRepository
 import com.colabear754.jpa_example.repositories.member.order.OrderRepository
 import org.assertj.core.api.AssertionsForInterfaceTypes.assertThat
 import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.ActiveProfiles
 import java.util.*
 
-@SpringBootTest
-@ActiveProfiles("test")
+@TestContainer
 class MemberServiceTest @Autowired constructor(
     private val memberService: MemberService,
     private val memberRepository: MemberRepository,
