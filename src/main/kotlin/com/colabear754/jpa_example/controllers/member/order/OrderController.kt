@@ -5,13 +5,13 @@ import com.colabear754.jpa_example.entities.member.order.Order
 import com.colabear754.jpa_example.repositories.member.order.OrderItemRepository
 import com.colabear754.jpa_example.services.member.MemberService
 import com.colabear754.jpa_example.services.member.order.OrderService
-import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 import java.util.*
 
-@Controller
+@RestController
 @RequestMapping("/member/order")
 class OrderController(
     private val orderService: OrderService,
