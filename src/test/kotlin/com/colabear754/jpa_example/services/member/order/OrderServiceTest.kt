@@ -2,7 +2,7 @@ package com.colabear754.jpa_example.services.member.order
 
 import com.colabear754.jpa_example.TestContainer
 import com.colabear754.jpa_example.common.OrderStatus
-import com.colabear754.jpa_example.dto.member.order.OrderItemDTO
+import com.colabear754.jpa_example.dto.member.order.OrderItemRequest
 import com.colabear754.jpa_example.entities.item.Album
 import com.colabear754.jpa_example.entities.item.Book
 import com.colabear754.jpa_example.entities.member.Member
@@ -55,7 +55,7 @@ class OrderServiceTest @Autowired constructor(
         val album = itemRepository.save(Album("album", 1000, 3, "artist", "etc", "createdBy", "lastModifiedBy"))
         val book = itemRepository.save(Book("book", 1000, 1, "author", "isbn", "createdBy", "lastModifiedBy"))
         // when
-        orderService.newOrder(order, listOf(OrderItemDTO(album.id!!, 3), OrderItemDTO(book.id!!, 1)))
+        orderService.newOrder(order, listOf(OrderItemRequest(album.id!!, 3), OrderItemRequest(book.id!!, 1)))
         // then
         transactionHelper.execute {
             val savedOrders = orderRepository.findAll()

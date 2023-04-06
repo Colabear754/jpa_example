@@ -1,6 +1,6 @@
 package com.colabear754.jpa_example.services.member.order
 
-import com.colabear754.jpa_example.dto.member.order.OrderItemDTO
+import com.colabear754.jpa_example.dto.member.order.OrderItemRequest
 import com.colabear754.jpa_example.entities.member.Member
 import com.colabear754.jpa_example.entities.member.order.Order
 import com.colabear754.jpa_example.entities.member.order.OrderItem
@@ -25,7 +25,7 @@ class OrderService(
     fun getOrders(member: Member): List<Order> = orderRepository.findByMember(member)
 
     @Transactional
-    fun newOrder(order: Order, orderItems: List<OrderItemDTO>): Order {
+    fun newOrder(order: Order, orderItems: List<OrderItemRequest>): Order {
         orderRepository.save(order)
         for (dto in orderItems) {
             val item = itemRepository.findByIdOrThrow(dto.id, "존재하지 않는 상품입니다.")
