@@ -5,6 +5,7 @@ import com.colabear754.jpa_example.entities.BaseEntity
 import com.colabear754.jpa_example.entities.member.Member
 import com.colabear754.jpa_example.entities.member.order.delivery.Delivery
 import jakarta.persistence.*
+import jakarta.persistence.CascadeType.*
 import jakarta.persistence.FetchType.*
 import java.time.LocalDate
 import java.util.*
@@ -13,9 +14,9 @@ import java.util.*
 class Order(
     @ManyToOne(fetch = LAZY)
     val member: Member?,
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = [ALL])
     val orderItems: MutableList<OrderItem> = mutableListOf(),
-    @OneToOne(fetch = LAZY, cascade = [CascadeType.ALL])
+    @OneToOne(fetch = LAZY, cascade = [ALL])
     val delivery: Delivery? = null,
     @Column(nullable = false)
     val orderDate: LocalDate = LocalDate.now(),
