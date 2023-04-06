@@ -1,5 +1,6 @@
 package com.colabear754.jpa_example.entities.item
 
+import com.colabear754.jpa_example.dto.member.item.RegistItemRequest
 import com.colabear754.jpa_example.util.typeMismatch
 import jakarta.persistence.Entity
 
@@ -25,5 +26,17 @@ class Book(
 
     override fun toString(): String {
         return "Book(${super.toString()}, author='$author', isbn='$isbn')"
+    }
+
+    companion object {
+        fun from(request: RegistItemRequest) = Book(
+            name = request.name,
+            price = request.price,
+            stockQuantity = request.stockQuantity,
+            author = request.additionalProperties["author"] ?: "",
+            isbn = request.additionalProperties["isbn"] ?: "",
+            createdBy = request.createdBy,
+            lastModifiedBy = request.createdBy
+        )
     }
 }

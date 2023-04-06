@@ -1,6 +1,5 @@
 package com.colabear754.jpa_example.entities.member.order
 
-import com.colabear754.jpa_example.dto.member.order.OrderItemDTO
 import com.colabear754.jpa_example.entities.item.Item
 import jakarta.persistence.*
 import java.util.*

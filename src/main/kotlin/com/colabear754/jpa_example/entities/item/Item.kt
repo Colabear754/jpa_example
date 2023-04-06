@@ -1,5 +1,7 @@
 package com.colabear754.jpa_example.entities.item
 
+import com.colabear754.jpa_example.common.ItemType
+import com.colabear754.jpa_example.dto.member.item.RegistItemRequest
 import com.colabear754.jpa_example.entities.BaseEntity
 import com.colabear754.jpa_example.entities.item.category.Category
 import com.colabear754.jpa_example.exceptions.NotEnoughStockException
@@ -8,6 +10,7 @@ import java.util.*
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "item_type")
 abstract class Item(
     @Column(nullable = false)
     var name: String,
@@ -23,6 +26,14 @@ abstract class Item(
     @GeneratedValue(strategy = GenerationType.UUID)
     val id: UUID? = null
 ) : BaseEntity(createdBy = createdBy, lastModifiedBy = lastModifiedBy) {
+    companion object {
+        fun from(request: RegistItemRequest) = when (request.itemType) {
+            ItemType.ALBUM -> Album.from(request)
+            ItemType.BOOK -> Book.from(request)
+            ItemType.MOVIE -> Movie.from(request)
+        }
+    }
+
     fun addStock(quantity: Int) {
         stockQuantity += quantity
     }

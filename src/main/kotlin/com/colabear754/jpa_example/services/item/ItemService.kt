@@ -1,5 +1,6 @@
 package com.colabear754.jpa_example.services.item
 
+import com.colabear754.jpa_example.dto.member.item.RegistItemRequest
 import com.colabear754.jpa_example.entities.item.Item
 import com.colabear754.jpa_example.repositories.item.AlbumRepository
 import com.colabear754.jpa_example.repositories.item.BookRepository
@@ -18,7 +19,7 @@ class ItemService(
     private val movieRepository: MovieRepository
 ) {
     @Transactional
-    fun registNewItem(item: Item) = itemRepository.save(item)
+    fun registNewItem(request: RegistItemRequest) = itemRepository.save(Item.from(request))
 
     @Transactional
     fun registNewItems(items: List<Item>): MutableList<Item> = itemRepository.saveAll(items)
