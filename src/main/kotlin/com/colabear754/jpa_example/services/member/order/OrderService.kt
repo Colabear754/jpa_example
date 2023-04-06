@@ -8,8 +8,8 @@ import com.colabear754.jpa_example.exceptions.NotEnoughStockException
 import com.colabear754.jpa_example.repositories.item.ItemRepository
 import com.colabear754.jpa_example.repositories.member.order.OrderItemRepository
 import com.colabear754.jpa_example.repositories.member.order.OrderRepository
-import com.colabear754.jpa_example.util.Logger
 import com.colabear754.jpa_example.util.findByIdOrThrow
+import com.colabear754.jpa_example.util.logger
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.*
@@ -18,7 +18,9 @@ import java.util.*
 class OrderService(
     private val orderRepository: OrderRepository, private val orderItemRepository: OrderItemRepository,
     private val itemRepository: ItemRepository
-) : Logger() {
+) {
+    val log = logger()
+
     @Transactional(readOnly = true)
     fun getOrders(member: Member): List<Order> = orderRepository.findByMember(member)
 
