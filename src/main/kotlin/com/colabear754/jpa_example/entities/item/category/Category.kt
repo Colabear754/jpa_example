@@ -2,11 +2,12 @@ package com.colabear754.jpa_example.entities.item.category
 
 import com.colabear754.jpa_example.entities.item.Item
 import jakarta.persistence.*
+import jakarta.persistence.FetchType.LAZY
 
 @Entity
 class Category(
     var name: String,
-    @ManyToOne
+    @ManyToOne(fetch = LAZY)
     var parent: Category? = null,
     @ManyToMany
     @JoinTable(

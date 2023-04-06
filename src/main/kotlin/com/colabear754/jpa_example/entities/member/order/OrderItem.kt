@@ -2,13 +2,14 @@ package com.colabear754.jpa_example.entities.member.order
 
 import com.colabear754.jpa_example.entities.item.Item
 import jakarta.persistence.*
+import jakarta.persistence.FetchType.LAZY
 import java.util.*
 
 @Entity
 class OrderItem(
-    @ManyToOne
+    @ManyToOne(fetch = LAZY)
     val item: Item,
-    @ManyToOne
+    @ManyToOne(fetch = LAZY)
     val order: Order,
     val count: Int,
     @Id
