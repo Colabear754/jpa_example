@@ -6,6 +6,7 @@ import com.colabear754.jpa_example.domain.entities.item.Album
 import com.colabear754.jpa_example.domain.entities.item.Book
 import com.colabear754.jpa_example.domain.entities.member.Member
 import com.colabear754.jpa_example.domain.entities.member.order.Order
+import com.colabear754.jpa_example.domain.value.Address
 import com.colabear754.jpa_example.dto.member.order.OrderItemRequest
 import com.colabear754.jpa_example.repositories.item.ItemRepository
 import com.colabear754.jpa_example.repositories.member.MemberRepository
@@ -37,7 +38,7 @@ class OrderServiceTest @Autowired constructor(
     @Test
     fun 주문조회() {
         // given
-        val member = memberRepository.save(Member("AAA", 20, "12345", "서울시 강남구", "010-1234-5678"))
+        val member = memberRepository.save(Member("AAA", 20, Address("12345", "서울시 강남구"), "010-1234-5678"))
         val orders = listOf(Order(member), Order(member))
         orderService.newOrders(orders)
         // when

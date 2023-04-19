@@ -1,6 +1,7 @@
 package com.colabear754.jpa_example.domain.entities.member
 
 import com.colabear754.jpa_example.domain.entities.BaseEntity
+import com.colabear754.jpa_example.domain.value.Address
 import io.swagger.v3.oas.annotations.media.Schema
 import jakarta.persistence.*
 import java.util.*
@@ -11,9 +12,8 @@ class Member(
     var name: String,
     var age: Int?,
     @Column(nullable = false)
-    var zipCode: String,
-    @Column(nullable = false)
-    var address: String?,
+    @Embedded
+    var address: Address,
     @Column(nullable = false)
     var phoneNumber: String,
     @Id
@@ -26,7 +26,6 @@ class Member(
     fun update(newMember: Member) {
         this.name = newMember.name
         this.age = newMember.age
-        this.zipCode = newMember.zipCode
         this.address = newMember.address
         this.phoneNumber = newMember.phoneNumber
     }
