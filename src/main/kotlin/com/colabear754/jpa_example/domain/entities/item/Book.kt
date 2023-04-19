@@ -1,4 +1,4 @@
-package com.colabear754.jpa_example.entities.item
+package com.colabear754.jpa_example.domain.entities.item
 
 import com.colabear754.jpa_example.dto.member.item.RegistItemRequest
 import com.colabear754.jpa_example.util.typeMismatch

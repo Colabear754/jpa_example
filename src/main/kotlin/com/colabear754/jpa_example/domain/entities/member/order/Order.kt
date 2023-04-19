@@ -1,9 +1,9 @@
-package com.colabear754.jpa_example.entities.member.order
+package com.colabear754.jpa_example.domain.entities.member.order
 
 import com.colabear754.jpa_example.common.OrderStatus
-import com.colabear754.jpa_example.entities.BaseEntity
-import com.colabear754.jpa_example.entities.member.Member
-import com.colabear754.jpa_example.entities.member.order.delivery.Delivery
+import com.colabear754.jpa_example.domain.entities.BaseEntity
+import com.colabear754.jpa_example.domain.entities.member.Member
+import com.colabear754.jpa_example.domain.entities.member.order.delivery.Delivery
 import jakarta.persistence.*
 import jakarta.persistence.CascadeType.*
 import jakarta.persistence.FetchType.*

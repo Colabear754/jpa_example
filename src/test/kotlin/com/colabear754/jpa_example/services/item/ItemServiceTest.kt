@@ -2,10 +2,10 @@ package com.colabear754.jpa_example.services.item
 
 import com.colabear754.jpa_example.TestContainer
 import com.colabear754.jpa_example.common.ItemType
+import com.colabear754.jpa_example.domain.entities.item.Album
+import com.colabear754.jpa_example.domain.entities.item.Book
+import com.colabear754.jpa_example.domain.entities.item.Movie
 import com.colabear754.jpa_example.dto.member.item.RegistItemRequest
-import com.colabear754.jpa_example.entities.item.Album
-import com.colabear754.jpa_example.entities.item.Book
-import com.colabear754.jpa_example.entities.item.Movie
 import com.colabear754.jpa_example.exceptions.NotEnoughStockException
 import com.colabear754.jpa_example.repositories.item.AlbumRepository
 import com.colabear754.jpa_example.repositories.item.BookRepository

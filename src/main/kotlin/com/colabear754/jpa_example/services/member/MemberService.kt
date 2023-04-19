@@ -1,6 +1,6 @@
 package com.colabear754.jpa_example.services.member
 
-import com.colabear754.jpa_example.entities.member.Member
+import com.colabear754.jpa_example.domain.entities.member.Member
 import com.colabear754.jpa_example.repositories.member.MemberRepository
 import com.colabear754.jpa_example.util.findByIdOrThrow
 import org.springframework.stereotype.Service

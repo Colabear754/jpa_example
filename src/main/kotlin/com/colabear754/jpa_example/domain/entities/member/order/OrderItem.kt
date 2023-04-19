@@ -1,6 +1,6 @@
-package com.colabear754.jpa_example.entities.member.order
+package com.colabear754.jpa_example.domain.entities.member.order
 
-import com.colabear754.jpa_example.entities.item.Item
+import com.colabear754.jpa_example.domain.entities.item.Item
 import jakarta.persistence.*
 import jakarta.persistence.FetchType.LAZY
 import java.util.*

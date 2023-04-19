@@ -1,9 +1,9 @@
 package com.colabear754.jpa_example.services.member.order
 
+import com.colabear754.jpa_example.domain.entities.member.Member
+import com.colabear754.jpa_example.domain.entities.member.order.Order
+import com.colabear754.jpa_example.domain.entities.member.order.OrderItem
 import com.colabear754.jpa_example.dto.member.order.OrderItemRequest
-import com.colabear754.jpa_example.entities.member.Member
-import com.colabear754.jpa_example.entities.member.order.Order
-import com.colabear754.jpa_example.entities.member.order.OrderItem
 import com.colabear754.jpa_example.exceptions.NotEnoughStockException
 import com.colabear754.jpa_example.repositories.item.ItemRepository
 import com.colabear754.jpa_example.repositories.member.order.OrderItemRepository

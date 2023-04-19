@@ -1,4 +1,4 @@
-package com.colabear754.jpa_example.entities.member.order.delivery
+package com.colabear754.jpa_example.domain.entities.member.order.delivery
 
 import com.colabear754.jpa_example.common.DeliveryStatus
 import jakarta.persistence.Entity

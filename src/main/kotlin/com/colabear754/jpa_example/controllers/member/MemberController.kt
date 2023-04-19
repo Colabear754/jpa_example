@@ -1,9 +1,9 @@
 package com.colabear754.jpa_example.controllers.member
 
-import com.colabear754.jpa_example.entities.member.Member
+import com.colabear754.jpa_example.domain.entities.member.Member
 import com.colabear754.jpa_example.services.member.MemberService
 import org.springframework.web.bind.annotation.*
-import java.util.UUID
+import java.util.*
 
 @RestController
 @RequestMapping("/member")

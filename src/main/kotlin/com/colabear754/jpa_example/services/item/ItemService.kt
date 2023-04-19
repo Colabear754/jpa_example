@@ -1,7 +1,7 @@
 package com.colabear754.jpa_example.services.item
 
+import com.colabear754.jpa_example.domain.entities.item.Item
 import com.colabear754.jpa_example.dto.member.item.RegistItemRequest
-import com.colabear754.jpa_example.entities.item.Item
 import com.colabear754.jpa_example.repositories.item.AlbumRepository
 import com.colabear754.jpa_example.repositories.item.BookRepository
 import com.colabear754.jpa_example.repositories.item.ItemRepository

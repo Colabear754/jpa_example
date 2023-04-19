@@ -1,6 +1,6 @@
 package com.colabear754.jpa_example.repositories.item
 
-import com.colabear754.jpa_example.entities.item.Album
+import com.colabear754.jpa_example.domain.entities.item.Album
 import org.springframework.data.jpa.repository.JpaRepository
 import java.util.*
 

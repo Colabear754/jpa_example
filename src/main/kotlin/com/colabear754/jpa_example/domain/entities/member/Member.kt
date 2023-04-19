@@ -1,9 +1,9 @@
-package com.colabear754.jpa_example.entities.member
+package com.colabear754.jpa_example.domain.entities.member
 
-import com.colabear754.jpa_example.entities.BaseEntity
+import com.colabear754.jpa_example.domain.entities.BaseEntity
 import io.swagger.v3.oas.annotations.media.Schema
 import jakarta.persistence.*
-import java.util.UUID
+import java.util.*
 
 @Entity
 class Member(

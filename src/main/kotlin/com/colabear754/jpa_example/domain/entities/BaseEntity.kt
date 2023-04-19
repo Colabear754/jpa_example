@@ -1,4 +1,4 @@
-package com.colabear754.jpa_example.entities
+package com.colabear754.jpa_example.domain.entities
 
 import jakarta.persistence.MappedSuperclass
 import java.time.LocalDateTime
