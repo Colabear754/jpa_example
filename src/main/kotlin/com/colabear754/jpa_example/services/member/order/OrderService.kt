@@ -30,7 +30,7 @@ class OrderService(
         for (dto in orderItems) {
             val item = itemRepository.findByIdOrThrow(dto.id, "존재하지 않는 상품입니다.")
             try {
-                item.removeStock(dto.count)
+                item.removeStock(dto.count, order.member?.name ?: "비회원")
                 val orderItem = OrderItem(item, order, dto.count)
                 orderItemRepository.save(orderItem)
                 order.addOrderItem(orderItem)
@@ -48,6 +48,6 @@ class OrderService(
     @Transactional
     fun cancelOrder(id: UUID) {
         val order = orderRepository.findByIdOrThrow(id, "존재하지 않는 주문번호입니다.")
-        order.cancel()
+        order.cancel(order.member?.name ?: "비회원")
     }
 }

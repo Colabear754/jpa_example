@@ -6,6 +6,7 @@ import com.colabear754.jpa_example.domain.entities.item.category.Category
 import com.colabear754.jpa_example.dto.member.item.RegistItemRequest
 import com.colabear754.jpa_example.exceptions.NotEnoughStockException
 import jakarta.persistence.*
+import java.time.LocalDateTime
 import java.util.*
 
 @Entity
@@ -34,22 +35,24 @@ abstract class Item(
         }
     }
 
-    fun addStock(quantity: Int) {
+    fun addStock(quantity: Int, requestor: String) {
         stockQuantity += quantity
+        lastModifiedBy = requestor
+        lastModifiedDate = LocalDateTime.now()
     }
 
-    fun removeStock(quantity: Int) {
-        val restStock = stockQuantity - quantity
-        if (restStock < 0) {
-            throw NotEnoughStockException("재고가 부족합니다. 현재 재고: $stockQuantity, 요청 수량: $quantity")
-        }
-        stockQuantity = restStock
+    fun removeStock(quantity: Int, requestor: String) {
+        stockQuantity = (stockQuantity - quantity).also { if (it < 0) throw NotEnoughStockException("재고가 부족합니다. 현재 재고: $stockQuantity, 요청 수량: $quantity") }
+        lastModifiedBy = requestor
+        lastModifiedDate = LocalDateTime.now()
     }
 
-    fun change(item: Item) {
+    fun change(item: Item, requestor: String) {
         this.name = item.name
         this.price = item.price
         this.stockQuantity = item.stockQuantity
+        this.lastModifiedBy = requestor
+        this.lastModifiedDate = LocalDateTime.now()
     }
 
     override fun toString(): String {

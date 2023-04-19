@@ -25,23 +25,23 @@ class ItemService(
     fun registNewItems(items: List<Item>): MutableList<Item> = itemRepository.saveAll(items)
 
     @Transactional
-    fun updateItem(id: UUID, item: Item) {
+    fun updateItem(id: UUID, item: Item, requestor: String) {
         val savedItem = itemRepository.findByIdOrThrow(id, "존재하지 않는 상품입니다.")
-        savedItem.change(item)
+        savedItem.change(item, requestor)
     }
 
     @Transactional(readOnly = true)
     fun getItems(): List<Item> = itemRepository.findAll()
 
     @Transactional
-    fun restock(id: UUID, quantity: Int) {
+    fun restock(id: UUID, quantity: Int, requestor: String) {
         val savedItem = itemRepository.findByIdOrThrow(id, "존재하지 않는 상품입니다.")
-        savedItem.addStock(quantity)
+        savedItem.addStock(quantity, requestor)
     }
 
     @Transactional
-    fun sell(id: UUID, quantity: Int) {
+    fun sell(id: UUID, quantity: Int, requestor: String) {
         val savedItem = itemRepository.findByIdOrThrow(id, "존재하지 않는 상품입니다.")
-        savedItem.removeStock(quantity)
+        savedItem.removeStock(quantity, requestor)
     }
 }

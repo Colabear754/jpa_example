@@ -4,6 +4,7 @@ import com.colabear754.jpa_example.domain.entities.BaseEntity
 import com.colabear754.jpa_example.domain.value.Address
 import io.swagger.v3.oas.annotations.media.Schema
 import jakarta.persistence.*
+import java.time.LocalDateTime
 import java.util.*
 
 @Entity
@@ -28,5 +29,7 @@ class Member(
         this.age = newMember.age
         this.address = newMember.address
         this.phoneNumber = newMember.phoneNumber
+        this.lastModifiedBy = newMember.lastModifiedBy
+        this.lastModifiedDate = LocalDateTime.now()
     }
 }

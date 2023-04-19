@@ -99,7 +99,7 @@ class ItemServiceTest @Autowired constructor(
         // when
         val savedAlbum = itemRepository.findByIdOrThrow(album.id)
         val newAlbum = Album("newAlbum", 2000, 2, "newArtist", "newEtc", "newCreatedBy", "newLastModifiedBy")
-        itemService.updateItem(savedAlbum.id!!, newAlbum)
+        itemService.updateItem(savedAlbum.id!!, newAlbum, "관리자")
         // then
         val updatedAlbum = itemRepository.findByIdOrThrow(album.id) as Album
         assertThat(updatedAlbum.name).isEqualTo("newAlbum")
@@ -115,9 +115,9 @@ class ItemServiceTest @Autowired constructor(
         val book = itemRepository.save(Book("album", 1000, 1, "artist", "etc", "createdBy", "lastModifiedBy"))
         // when
         val savedBook = itemRepository.findByIdOrThrow(book.id)
-        itemService.restock(savedBook.id!!, 10)
+        itemService.restock(savedBook.id!!, 10, "관리자")
         // then
-        val updatedBook = itemRepository.findByIdOrThrow(book.id) as Book
+        val updatedBook = itemRepository.findByIdOrThrow(book.id)
         assertThat(updatedBook.stockQuantity).isEqualTo(11)
     }
 
@@ -127,9 +127,9 @@ class ItemServiceTest @Autowired constructor(
         val movie = itemRepository.save(Movie("album", 1000, 1, "artist", "etc", "createdBy", "lastModifiedBy"))
         // when
         val savedMovie = itemRepository.findByIdOrThrow(movie.id)
-        itemService.sell(savedMovie.id!!, 1)
+        itemService.sell(savedMovie.id!!, 1, "회원")
         // then
-        val updatedMovie = itemRepository.findByIdOrThrow(movie.id) as Movie
+        val updatedMovie = itemRepository.findByIdOrThrow(movie.id)
         assertThat(updatedMovie.stockQuantity).isEqualTo(0)
     }
 
@@ -141,7 +141,7 @@ class ItemServiceTest @Autowired constructor(
         // then
         val savedMovie = itemRepository.findByIdOrThrow(movie.id)
         assertThrows<NotEnoughStockException> {
-            itemService.sell(savedMovie.id!!, 2)
+            itemService.sell(savedMovie.id!!, 2, "회원")
         }.also {
             assertThat(it.message).isEqualTo("재고가 부족합니다. 현재 재고: 1, 요청 수량: 2")
         }

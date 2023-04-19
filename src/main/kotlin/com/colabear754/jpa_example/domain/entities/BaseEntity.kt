@@ -7,6 +7,6 @@ import java.time.LocalDateTime
 abstract class BaseEntity(
     val createdBy: String? = null,
     val createdDate: LocalDateTime = LocalDateTime.now(),
-    val lastModifiedBy: String? = null,
-    val lastModifiedDate: LocalDateTime = LocalDateTime.now()
+    var lastModifiedBy: String? = null,
+    var lastModifiedDate: LocalDateTime = LocalDateTime.now()
 )

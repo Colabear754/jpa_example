@@ -14,11 +14,11 @@ class Album(
     createdBy: String,
     lastModifiedBy: String
 ) : Item(name, price, stockQuantity, createdBy, lastModifiedBy) {
-    override fun change(item: Item) {
+    override fun change(item: Item, requestor: String) {
         if (item is Album) {
             this.artist = item.artist
             this.etc = item.etc
-            super.change(item)
+            super.change(item, requestor)
         } else {
             typeMismatch("입력된 상품 정보가 앨범이 아닙니다.")
         }

@@ -14,11 +14,11 @@ class Movie(
     createdBy: String,
     lastModifiedBy: String
 ) : Item(name, price, stockQuantity, createdBy, lastModifiedBy) {
-    override fun change(item: Item) {
+    override fun change(item: Item, requestor: String) {
         if (item is Movie) {
             this.director = item.director
             this.actor = item.actor
-            super.change(item)
+            super.change(item, requestor)
         } else {
             typeMismatch("입력된 상품 정보가 영화가 아닙니다.")
         }

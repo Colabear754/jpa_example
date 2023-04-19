@@ -14,11 +14,11 @@ class Book(
     createdBy: String,
     lastModifiedBy: String,
 ) : Item(name, price, stockQuantity, createdBy, lastModifiedBy) {
-    override fun change(item: Item) {
+    override fun change(item: Item, requestor: String) {
         if (item is Book) {
             this.author = item.author
             this.isbn = item.isbn
-            super.change(item)
+            super.change(item, requestor)
         } else {
             typeMismatch("입력된 상품 정보가 책이 아닙니다.")
         }

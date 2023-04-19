@@ -8,6 +8,7 @@ import jakarta.persistence.*
 import jakarta.persistence.CascadeType.*
 import jakarta.persistence.FetchType.*
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.util.*
 
 @Entity(name = "orders")
@@ -29,9 +30,11 @@ class Order(
     createdBy: String? = null,
     lastModifiedBy: String? = null
 ) : BaseEntity(createdBy = createdBy, lastModifiedBy = lastModifiedBy) {
-    fun cancel() {
+    fun cancel(requestor: String) {
         if (status == OrderStatus.ORDER) {
             status = OrderStatus.CANCEL
+            lastModifiedBy = requestor
+            lastModifiedDate = LocalDateTime.now()
         }
     }
 
