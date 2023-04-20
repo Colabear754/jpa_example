@@ -38,7 +38,7 @@ class OrderServiceTest @Autowired constructor(
     @Test
     fun 주문조회() {
         // given
-        val member = memberRepository.save(Member("AAA", 20, Address("12345", "서울시 강남구"), "010-1234-5678"))
+        val member = memberRepository.save(Member("AAA", 20, Address("12345", "서울시 강남구", "상세 주소"), "010-1234-5678"))
         val orders = listOf(Order(member), Order(member))
         orderService.newOrders(orders)
         // when

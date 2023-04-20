@@ -27,7 +27,7 @@ class MemberServiceTest @Autowired constructor(
     @Test
     fun 회원추가() {
         // given
-        val address = Address("12345", "서울시 강남구")
+        val address = Address("12345", "서울시 강남구", "상세 주소")
         val member = Member("AAA", 20, address, "010-1234-5678")
         // when
         memberService.insertMember(member)
@@ -43,9 +43,9 @@ class MemberServiceTest @Autowired constructor(
     @Test
     fun 회원수정() {
         // given
-        val savedMember = memberRepository.save(Member("AAA", 20, Address("12345", "서울시 강남구"), "010-1234-5678"))
+        val savedMember = memberRepository.save(Member("AAA", 20, Address("12345", "서울시 강남구", "상세 주소"), "010-1234-5678"))
         // when
-        val newAddress = Address("67890", "서울시 중구")
+        val newAddress = Address("67890", "서울시 중구", "새 상세 주소")
         val updatedMember = memberService.updateMember(savedMember.id!!, Member("BBB", 30, newAddress, "010-5678-1234"))
         // then
         assertThat(updatedMember.id).isEqualTo(savedMember.id!!)
@@ -58,7 +58,7 @@ class MemberServiceTest @Autowired constructor(
     @Test
     fun 회원삭제() {
         // given
-        val savedMember = memberRepository.save(Member("AAA", 20, Address("12345", "서울시 강남구"), "010-1234-5678"))
+        val savedMember = memberRepository.save(Member("AAA", 20, Address("12345", "서울시 강남구", "상세 주소"), "010-1234-5678"))
         // when
         memberService.deleteMember(savedMember.id!!)
         // then
@@ -72,7 +72,7 @@ class MemberServiceTest @Autowired constructor(
         val id = UUID.randomUUID()
         // when
         val exception = assertThrows<NoSuchElementException> {
-            memberService.updateMember(id, Member("BBB", 30, Address("67890", "서울시 중구"), "010-5678-1234"))
+            memberService.updateMember(id, Member("BBB", 30, Address("67890", "서울시 중구", "새 상세 주소"), "010-5678-1234"))
         }
         // then
         assertThat(exception.message).isEqualTo("존재하지 않는 회원입니다.")
