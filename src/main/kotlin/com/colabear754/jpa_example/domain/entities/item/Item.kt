@@ -3,7 +3,7 @@ package com.colabear754.jpa_example.domain.entities.item
 import com.colabear754.jpa_example.common.ItemType
 import com.colabear754.jpa_example.domain.entities.BaseEntity
 import com.colabear754.jpa_example.domain.entities.item.category.Category
-import com.colabear754.jpa_example.dto.member.item.RegistItemRequest
+import com.colabear754.jpa_example.dto.item.RegistItemRequest
 import com.colabear754.jpa_example.exceptions.NotEnoughStockException
 import jakarta.persistence.*
 import java.time.LocalDateTime

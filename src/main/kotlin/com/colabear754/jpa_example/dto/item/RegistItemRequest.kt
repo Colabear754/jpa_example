@@ -1,4 +1,4 @@
-package com.colabear754.jpa_example.dto.member.item
+package com.colabear754.jpa_example.dto.item
 
 import com.colabear754.jpa_example.common.ItemType
 import io.swagger.v3.oas.annotations.media.Schema
