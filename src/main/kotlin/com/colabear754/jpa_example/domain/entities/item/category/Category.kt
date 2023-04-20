@@ -1,5 +1,6 @@
 package com.colabear754.jpa_example.domain.entities.item.category
 
+import com.colabear754.jpa_example.domain.entities.BaseEntity
 import com.colabear754.jpa_example.domain.entities.item.Item
 import jakarta.persistence.*
 import jakarta.persistence.FetchType.LAZY
@@ -18,7 +19,9 @@ class Category(
     val items: MutableList<Item> = mutableListOf(),
     @OneToMany(mappedBy = "parent")
     val children: MutableList<Category> = mutableListOf(),
+    createdBy: String,
+    lastModifiedBy: String,
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null
-)
+) : BaseEntity(createdBy = createdBy, lastModifiedBy = lastModifiedBy)
