@@ -18,7 +18,7 @@ class Order(
     @OneToMany(mappedBy = "order", cascade = [ALL])
     val orderItems: MutableList<OrderItem> = mutableListOf(),
     @OneToOne(fetch = LAZY, cascade = [ALL])
-    val delivery: Delivery? = null,
+    var delivery: Delivery? = null,
     @Column(nullable = false)
     val orderDate: LocalDate = LocalDate.now(),
     @Column(nullable = false)
@@ -40,5 +40,12 @@ class Order(
 
     fun addOrderItem(orderItem: OrderItem) {
         orderItems.add(orderItem)
+    }
+
+    fun assignDelivery(delivery: Delivery) {
+        if (this.delivery != null) {
+            throw IllegalStateException("이미 배송 정보가 등록되어 있습니다")
+        }
+        this.delivery = delivery
     }
 }
