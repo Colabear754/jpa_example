@@ -5,12 +5,14 @@ import com.colabear754.jpa_example.domain.entities.BaseEntity
 import com.colabear754.jpa_example.domain.value.Address
 import jakarta.persistence.*
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 @Entity
 class Delivery(
     @Embedded
     val destination: Address,
+    @Enumerated(EnumType.STRING)
     var status: DeliveryStatus,
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

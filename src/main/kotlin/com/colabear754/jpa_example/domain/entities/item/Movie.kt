@@ -2,6 +2,7 @@ package com.colabear754.jpa_example.domain.entities.item
 
 import com.colabear754.jpa_example.dto.member.item.RegistItemRequest
 import com.colabear754.jpa_example.util.typeMismatch
+import jakarta.persistence.Column
 import jakarta.persistence.Entity
 
 @Entity
@@ -9,7 +10,9 @@ class Movie(
     name: String,
     price: Long,
     stockQuantity: Int = 1,
+    @Column(nullable = false)
     var director: String,
+    @Column(nullable = false)
     var actor: String,
     createdBy: String,
     lastModifiedBy: String

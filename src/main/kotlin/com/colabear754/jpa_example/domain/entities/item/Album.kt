@@ -10,7 +10,9 @@ class Album(
     name: String,
     price: Long,
     stockQuantity: Int = 1,
+    @Column(nullable = false)
     var artist: String,
+    @Column(nullable = false)
     var etc: String,
     createdBy: String,
     lastModifiedBy: String
