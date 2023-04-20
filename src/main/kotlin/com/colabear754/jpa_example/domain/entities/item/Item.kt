@@ -16,7 +16,7 @@ abstract class Item(
     @Column(nullable = false)
     var name: String,
     @Column(nullable = false)
-    var price: Int,
+    var price: Long,
     @Column(nullable = false)
     var stockQuantity: Int = 1,
     createdBy: String,

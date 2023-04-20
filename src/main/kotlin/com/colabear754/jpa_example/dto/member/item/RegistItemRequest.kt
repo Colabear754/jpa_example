@@ -7,7 +7,7 @@ data class RegistItemRequest(
     @Schema(description = "상품 이름", example = "상품1")
     val name: String,
     @Schema(description = "상품 가격", example = "1000")
-    val price: Int,
+    val price: Long,
     @Schema(description = "상품 재고", example = "10")
     val stockQuantity: Int,
     @Schema(description = "상품 타입", example = "BOOK")

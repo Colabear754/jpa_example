@@ -16,5 +16,5 @@ class OrderItem(
     @GeneratedValue(strategy = GenerationType.UUID)
     val id: UUID? = null,
 ) {
-    val orderPrice: Int get() = item.price * count
+    val orderPrice: Long get() = item.price * count
 }

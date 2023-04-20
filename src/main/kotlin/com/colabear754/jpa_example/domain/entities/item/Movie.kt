@@ -7,7 +7,7 @@ import jakarta.persistence.Entity
 @Entity
 class Movie(
     name: String,
-    price: Int,
+    price: Long,
     stockQuantity: Int = 1,
     var director: String,
     var actor: String,

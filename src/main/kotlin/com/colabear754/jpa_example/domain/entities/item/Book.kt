@@ -7,7 +7,7 @@ import jakarta.persistence.Entity
 @Entity
 class Book(
     name: String,
-    price: Int,
+    price: Long,
     stockQuantity: Int = 1,
     var author: String,
     var isbn: String,
