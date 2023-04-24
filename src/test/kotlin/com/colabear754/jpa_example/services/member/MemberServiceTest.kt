@@ -3,6 +3,7 @@ package com.colabear754.jpa_example.services.member
 import com.colabear754.jpa_example.TestContainer
 import com.colabear754.jpa_example.domain.entities.member.Member
 import com.colabear754.jpa_example.domain.value.Address
+import com.colabear754.jpa_example.dto.member.MemberRequest
 import com.colabear754.jpa_example.repositories.member.MemberRepository
 import com.colabear754.jpa_example.repositories.member.order.OrderRepository
 import org.assertj.core.api.AssertionsForInterfaceTypes.assertThat
@@ -27,38 +28,53 @@ class MemberServiceTest @Autowired constructor(
     @Test
     fun 회원추가() {
         // given
-        val address = Address("12345", "서울시 강남구", "상세 주소")
-        val member = Member("AAA", 20, address, "010-1234-5678")
+        val request = MemberRequest("AAA", 20, "12345", "서울시 강남구", "상세 주소", "010-1234-5678", "requestor")
         // when
-        memberService.insertMember(member)
+        memberService.insertMember(request)
         // then
         val savedMembers = memberRepository.findAll()
         assertThat(savedMembers).hasSize(1)
         assertThat(savedMembers[0].name).isEqualTo("AAA")
         assertThat(savedMembers[0].age).isEqualTo(20)
-        assertThat(savedMembers[0].address).isEqualTo(address)
+        assertThat(savedMembers[0].address).isEqualTo(Address("12345", "서울시 강남구", "상세 주소"))
         assertThat(savedMembers[0].phoneNumber).isEqualTo("010-1234-5678")
+    }
+
+    @Test
+    fun `회원의 전화번호는 중복될 수 없다`() {
+        // given
+        val request1 = MemberRequest("AAA", 20, "12345", "서울시 강남구", "상세 주소", "010-1234-5678", "requestor")
+        memberService.insertMember(request1)
+        // when
+        val request2 = MemberRequest("BBB", 30, "67890", "서울시 중구", "새 상세 주소", "010-1234-5678", "requestor")
+        // then
+        assertThrows<IllegalArgumentException> {
+            memberService.insertMember(request2)
+        }.also {
+            assertThat(it.message).isEqualTo("이미 등록된 전화번호입니다.")
+        }
     }
 
     @Test
     fun 회원수정() {
         // given
-        val savedMember = memberRepository.save(Member("AAA", 20, Address("12345", "서울시 강남구", "상세 주소"), "010-1234-5678"))
+        val savedMember =
+            memberRepository.save(Member("AAA", 20, Address("12345", "서울시 강남구", "상세 주소"), "010-1234-5678"))
         // when
-        val newAddress = Address("67890", "서울시 중구", "새 상세 주소")
-        val updatedMember = memberService.updateMember(savedMember.id!!, Member("BBB", 30, newAddress, "010-5678-1234"))
+        val updatedMember = memberService.updateMember(savedMember.id!!, MemberRequest("BBB", 30, "67890", "서울시 중구", "새 상세 주소", "010-5678-1234", "requestor"))
         // then
         assertThat(updatedMember.id).isEqualTo(savedMember.id!!)
         assertThat(updatedMember.name).isEqualTo("BBB")
         assertThat(updatedMember.age).isEqualTo(30)
-        assertThat(updatedMember.address).isEqualTo(newAddress)
+        assertThat(updatedMember.address).isEqualTo(Address("67890", "서울시 중구", "새 상세 주소"))
         assertThat(updatedMember.phoneNumber).isEqualTo("010-5678-1234")
     }
 
     @Test
     fun 회원삭제() {
         // given
-        val savedMember = memberRepository.save(Member("AAA", 20, Address("12345", "서울시 강남구", "상세 주소"), "010-1234-5678"))
+        val savedMember =
+            memberRepository.save(Member("AAA", 20, Address("12345", "서울시 강남구", "상세 주소"), "010-1234-5678"))
         // when
         memberService.deleteMember(savedMember.id!!)
         // then
@@ -72,7 +88,7 @@ class MemberServiceTest @Autowired constructor(
         val id = UUID.randomUUID()
         // when
         val exception = assertThrows<NoSuchElementException> {
-            memberService.updateMember(id, Member("BBB", 30, Address("67890", "서울시 중구", "새 상세 주소"), "010-5678-1234"))
+            memberService.updateMember(id, MemberRequest("BBB", 30, "67890", "서울시 중구", "새 상세 주소", "010-5678-1234", "requestor"))
         }
         // then
         assertThat(exception.message).isEqualTo("존재하지 않는 회원입니다.")

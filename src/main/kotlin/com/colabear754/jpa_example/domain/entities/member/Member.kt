@@ -2,6 +2,7 @@ package com.colabear754.jpa_example.domain.entities.member
 
 import com.colabear754.jpa_example.domain.entities.BaseEntity
 import com.colabear754.jpa_example.domain.value.Address
+import com.colabear754.jpa_example.dto.member.MemberRequest
 import io.swagger.v3.oas.annotations.media.Schema
 import jakarta.persistence.*
 import java.time.LocalDateTime
@@ -15,7 +16,7 @@ class Member(
     @Column(nullable = false)
     @Embedded
     var address: Address,
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     var phoneNumber: String,
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -24,6 +25,22 @@ class Member(
     createdBy: String? = null,
     lastModifiedBy: String? = null
 ) : BaseEntity(createdBy = createdBy, lastModifiedBy = lastModifiedBy) {
+    companion object {
+        fun of(request: MemberRequest): Member {
+            return Member(
+                name = request.name,
+                age = request.age,
+                address = Address(
+                    zipCode = request.zipCode,
+                    address = request.address,
+                    detailAddress = request.detailAddress),
+                phoneNumber = request.phoneNumber,
+                createdBy = request.requestor,
+                lastModifiedBy = request.requestor
+            )
+        }
+    }
+
     fun update(newMember: Member) {
         this.name = newMember.name
         this.age = newMember.age

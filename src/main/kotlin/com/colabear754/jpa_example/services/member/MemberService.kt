@@ -1,8 +1,10 @@
 package com.colabear754.jpa_example.services.member
 
 import com.colabear754.jpa_example.domain.entities.member.Member
+import com.colabear754.jpa_example.dto.member.MemberRequest
 import com.colabear754.jpa_example.repositories.member.MemberRepository
 import com.colabear754.jpa_example.util.findByIdOrThrow
+import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.*
@@ -16,12 +18,16 @@ class MemberService(private val memberRepository: MemberRepository) {
     fun getMembers(): List<Member> = memberRepository.findAll()
 
     @Transactional
-    fun insertMember(member: Member) = memberRepository.save(member)
+    fun insertMember(request: MemberRequest): Member = try {
+        memberRepository.saveAndFlush(Member.of(request))
+    } catch (e: DataIntegrityViolationException) {
+        throw IllegalArgumentException("이미 등록된 전화번호입니다.")
+    }
 
     @Transactional
-    fun updateMember(id: UUID, newMember: Member): Member {
+    fun updateMember(id: UUID, request: MemberRequest): Member {
         val member = memberRepository.findByIdOrThrow(id, "존재하지 않는 회원입니다.")
-        member.update(newMember)
+        member.update(Member.of(request))
         return member
     }
 
