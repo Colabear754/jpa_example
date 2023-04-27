@@ -66,7 +66,9 @@ class MemberServiceTest @Autowired constructor(
         assertThat(updatedMember.id).isEqualTo(savedMember.id!!)
         assertThat(updatedMember.name).isEqualTo("BBB")
         assertThat(updatedMember.age).isEqualTo(30)
-        assertThat(updatedMember.address).isEqualTo(Address("67890", "서울시 중구", "새 상세 주소"))
+        assertThat(updatedMember.zipCode).isEqualTo("67890")
+        assertThat(updatedMember.address).isEqualTo("서울시 중구")
+        assertThat(updatedMember.detailAddress).isEqualTo("새 상세 주소")
         assertThat(updatedMember.phoneNumber).isEqualTo("010-5678-1234")
     }
 
