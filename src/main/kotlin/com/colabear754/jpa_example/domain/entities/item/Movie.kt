@@ -1,7 +1,7 @@
 package com.colabear754.jpa_example.domain.entities.item
 
 import com.colabear754.jpa_example.dto.item.RegistItemRequest
-import com.colabear754.jpa_example.util.typeMismatch
+import com.colabear754.jpa_example.util.badRequest
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 
@@ -23,7 +23,7 @@ class Movie(
             this.actor = item.actor
             super.change(item, requestor)
         } else {
-            typeMismatch("입력된 상품 정보가 영화가 아닙니다.")
+            throw badRequest("입력된 상품 정보가 영화가 아닙니다.")
         }
     }
 
