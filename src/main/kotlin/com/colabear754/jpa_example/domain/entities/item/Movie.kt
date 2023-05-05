@@ -1,7 +1,6 @@
 package com.colabear754.jpa_example.domain.entities.item
 
-import com.colabear754.jpa_example.dto.item.RegistItemRequest
-import com.colabear754.jpa_example.util.badRequest
+import com.colabear754.jpa_example.dto.item.ItemRequest
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 
@@ -17,14 +16,13 @@ class Movie(
     createdBy: String,
     lastModifiedBy: String
 ) : Item(name, price, stockQuantity, createdBy, lastModifiedBy) {
-    override fun change(item: Item, requestor: String) {
-        if (item is Movie) {
-            this.director = item.director
-            this.actor = item.actor
-            super.change(item, requestor)
-        } else {
-            throw badRequest("입력된 상품 정보가 영화가 아닙니다.")
-        }
+    override fun change(request: ItemRequest) {
+        name = request.name
+        price = request.price
+        stockQuantity = request.stockQuantity
+        director = request.additionalProperties["director"] ?: director
+        actor = request.additionalProperties["actor"] ?: actor
+        lastModifiedBy = request.requestor
     }
 
     override fun toString(): String {
@@ -32,14 +30,14 @@ class Movie(
     }
 
     companion object {
-        fun from(request: RegistItemRequest) = Movie(
+        fun from(request: ItemRequest) = Movie(
             name = request.name,
             price = request.price,
             stockQuantity = request.stockQuantity,
             director = request.additionalProperties["director"] ?: "",
             actor = request.additionalProperties["actor"] ?: "",
-            createdBy = request.createdBy,
-            lastModifiedBy = request.createdBy
+            createdBy = request.requestor,
+            lastModifiedBy = request.requestor
         )
     }
 }

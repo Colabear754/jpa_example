@@ -5,7 +5,7 @@ import com.colabear754.jpa_example.common.ItemType
 import com.colabear754.jpa_example.domain.entities.item.Album
 import com.colabear754.jpa_example.domain.entities.item.Book
 import com.colabear754.jpa_example.domain.entities.item.Movie
-import com.colabear754.jpa_example.dto.item.RegistItemRequest
+import com.colabear754.jpa_example.dto.item.ItemRequest
 import com.colabear754.jpa_example.exceptions.NotEnoughStockException
 import com.colabear754.jpa_example.repositories.item.AlbumRepository
 import com.colabear754.jpa_example.repositories.item.BookRepository
@@ -37,9 +37,9 @@ class ItemServiceTest @Autowired constructor(
     @Test
     fun 상품추가() {
         // given
-        val album = RegistItemRequest("album", 1000, 1, ItemType.ALBUM, mutableMapOf("artist" to "artist", "etc" to "etc"), "createdBy")
-        val book = RegistItemRequest("book", 1000, 1, ItemType.BOOK, mutableMapOf("author" to "author", "isbn" to "isbn"), "createdBy")
-        val movie = RegistItemRequest("movie", 1000, 1, ItemType.MOVIE, mutableMapOf("director" to "director", "actor" to "actor"), "createdBy")
+        val album = ItemRequest("album", 1000, 1, ItemType.ALBUM, mutableMapOf("artist" to "artist", "etc" to "etc"), "createdBy")
+        val book = ItemRequest("book", 1000, 1, ItemType.BOOK, mutableMapOf("author" to "author", "isbn" to "isbn"), "createdBy")
+        val movie = ItemRequest("movie", 1000, 1, ItemType.MOVIE, mutableMapOf("director" to "director", "actor" to "actor"), "createdBy")
         // when
         itemService.registNewItem(album)
         itemService.registNewItem(book)
@@ -98,8 +98,8 @@ class ItemServiceTest @Autowired constructor(
         val album = itemRepository.save(Album("album", 1000, 1, "artist", "etc", "createdBy", "lastModifiedBy"))
         // when
         val savedAlbum = itemRepository.findByIdOrThrow(album.id)
-        val newAlbum = Album("newAlbum", 2000, 2, "newArtist", "newEtc", "newCreatedBy", "newLastModifiedBy")
-        itemService.updateItem(savedAlbum.id!!, newAlbum, "관리자")
+        val modifyRequest = ItemRequest("newAlbum", 2000, 2, ItemType.ALBUM, mutableMapOf("artist" to "newArtist", "etc" to "newEtc"), "관리자")
+        itemService.updateItem(savedAlbum.id!!, modifyRequest)
         // then
         val updatedAlbum = itemRepository.findByIdOrThrow(album.id) as Album
         assertThat(updatedAlbum.name).isEqualTo("newAlbum")
@@ -107,6 +107,7 @@ class ItemServiceTest @Autowired constructor(
         assertThat(updatedAlbum.stockQuantity).isEqualTo(2)
         assertThat(updatedAlbum.artist).isEqualTo("newArtist")
         assertThat(updatedAlbum.etc).isEqualTo("newEtc")
+        assertThat(updatedAlbum.lastModifiedBy).isEqualTo("관리자")
     }
 
     @Test

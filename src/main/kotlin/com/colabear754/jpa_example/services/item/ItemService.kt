@@ -1,7 +1,7 @@
 package com.colabear754.jpa_example.services.item
 
 import com.colabear754.jpa_example.domain.entities.item.Item
-import com.colabear754.jpa_example.dto.item.RegistItemRequest
+import com.colabear754.jpa_example.dto.item.ItemRequest
 import com.colabear754.jpa_example.repositories.item.AlbumRepository
 import com.colabear754.jpa_example.repositories.item.BookRepository
 import com.colabear754.jpa_example.repositories.item.ItemRepository
@@ -19,15 +19,15 @@ class ItemService(
     private val movieRepository: MovieRepository
 ) {
     @Transactional
-    fun registNewItem(request: RegistItemRequest) = itemRepository.save(Item.from(request))
+    fun registNewItem(request: ItemRequest) = itemRepository.save(Item.from(request))
 
     @Transactional
     fun registNewItems(items: List<Item>): MutableList<Item> = itemRepository.saveAll(items)
 
     @Transactional
-    fun updateItem(id: UUID, item: Item, requestor: String) {
+    fun updateItem(id: UUID, request: ItemRequest) {
         val savedItem = itemRepository.findByIdOrThrow(id, "존재하지 않는 상품입니다.")
-        savedItem.change(item, requestor)
+        savedItem.change(request)
     }
 
     @Transactional(readOnly = true)

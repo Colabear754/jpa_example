@@ -3,8 +3,9 @@ package com.colabear754.jpa_example.domain.entities.item
 import com.colabear754.jpa_example.common.ItemType
 import com.colabear754.jpa_example.domain.entities.BaseEntity
 import com.colabear754.jpa_example.domain.entities.item.category.Category
-import com.colabear754.jpa_example.dto.item.RegistItemRequest
+import com.colabear754.jpa_example.dto.item.ItemRequest
 import com.colabear754.jpa_example.exceptions.NotEnoughStockException
+import com.colabear754.jpa_example.util.badRequest
 import jakarta.persistence.*
 import java.time.LocalDateTime
 import java.util.*
@@ -28,7 +29,7 @@ abstract class Item(
     val id: UUID? = null
 ) : BaseEntity(createdBy = createdBy, lastModifiedBy = lastModifiedBy) {
     companion object {
-        fun from(request: RegistItemRequest) = when (request.itemType) {
+        fun from(request: ItemRequest) = when (request.itemType) {
             ItemType.ALBUM -> Album.from(request)
             ItemType.BOOK -> Book.from(request)
             ItemType.MOVIE -> Movie.from(request)
@@ -47,12 +48,13 @@ abstract class Item(
         lastModifiedDate = LocalDateTime.now()
     }
 
-    fun change(item: Item, requestor: String) {
-        this.name = item.name
-        this.price = item.price
-        this.stockQuantity = item.stockQuantity
-        this.lastModifiedBy = requestor
-        this.lastModifiedDate = LocalDateTime.now()
+    fun change(request: ItemRequest) {
+        when (this) {
+            is Book -> change(request)
+            is Album -> change(request)
+            is Movie -> change(request)
+            else -> throw badRequest("잘못된 상품 정보입니다.")
+        }
     }
 
     override fun toString(): String {

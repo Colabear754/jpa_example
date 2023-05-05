@@ -3,7 +3,7 @@ package com.colabear754.jpa_example.dto.item
 import com.colabear754.jpa_example.common.ItemType
 import io.swagger.v3.oas.annotations.media.Schema
 
-data class RegistItemRequest(
+data class ItemRequest(
     @Schema(description = "상품 이름", example = "상품1")
     val name: String,
     @Schema(description = "상품 가격", example = "1000")
@@ -14,6 +14,6 @@ data class RegistItemRequest(
     val itemType: ItemType,
     @Schema(description = "추가 정보", example = "{'key': 'value'}")
     val additionalProperties: MutableMap<String, String> = mutableMapOf(),
-    @Schema(description = "상품 생성자", example = "user1")
-    val createdBy: String
+    @Schema(description = "요청자", example = "user1")
+    val requestor: String
 )

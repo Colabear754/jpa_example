@@ -3,7 +3,6 @@ package com.colabear754.jpa_example.domain.entities.member
 import com.colabear754.jpa_example.domain.entities.BaseEntity
 import com.colabear754.jpa_example.domain.value.Address
 import com.colabear754.jpa_example.dto.member.MemberRequest
-import io.swagger.v3.oas.annotations.media.Schema
 import jakarta.persistence.*
 import java.time.LocalDateTime
 import java.util.*
@@ -20,7 +19,6 @@ class Member(
     var phoneNumber: String,
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Schema(hidden = true)
     val id: UUID? = null,
     createdBy: String? = null,
     lastModifiedBy: String? = null

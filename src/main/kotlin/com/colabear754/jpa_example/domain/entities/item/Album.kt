@@ -1,9 +1,9 @@
 package com.colabear754.jpa_example.domain.entities.item
 
-import com.colabear754.jpa_example.dto.item.RegistItemRequest
-import com.colabear754.jpa_example.util.badRequest
+import com.colabear754.jpa_example.dto.item.ItemRequest
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
+import java.time.LocalDateTime
 
 @Entity
 class Album(
@@ -17,14 +17,14 @@ class Album(
     createdBy: String,
     lastModifiedBy: String
 ) : Item(name, price, stockQuantity, createdBy, lastModifiedBy) {
-    override fun change(item: Item, requestor: String) {
-        if (item is Album) {
-            this.artist = item.artist
-            this.etc = item.etc
-            super.change(item, requestor)
-        } else {
-            throw badRequest("입력된 상품 정보가 앨범이 아닙니다.")
-        }
+    override fun change(request: ItemRequest) {
+        name = request.name
+        price = request.price
+        stockQuantity = request.stockQuantity
+        artist = request.additionalProperties["artist"] ?: artist
+        etc = request.additionalProperties["etc"] ?: etc
+        lastModifiedBy = request.requestor
+        lastModifiedDate = LocalDateTime.now()
     }
 
     override fun toString(): String {
@@ -32,14 +32,14 @@ class Album(
     }
 
     companion object {
-        fun from(request: RegistItemRequest) = Album(
+        fun from(request: ItemRequest) = Album(
             name = request.name,
             price = request.price,
             stockQuantity = request.stockQuantity,
             artist = request.additionalProperties["artist"] ?: "",
             etc = request.additionalProperties["etc"] ?: "",
-            createdBy = request.createdBy,
-            lastModifiedBy = request.createdBy
+            createdBy = request.requestor,
+            lastModifiedBy = request.requestor
         )
     }
 }
