@@ -20,15 +20,13 @@ class MemberService(private val memberRepository: MemberRepository) {
     fun getMembers(): List<Member> = memberRepository.findAll()
 
     @Transactional
-    fun insertMember(request: MemberRequest): MemberResponse {
-        val member = memberRepository.flushOrThrow(badRequest("이미 등록된 전화번호입니다.")) { save(Member.of(request)) }
-        return MemberResponse.from(member)
-    }
+    fun insertMember(request: MemberRequest): MemberResponse =
+        MemberResponse.from(memberRepository.flushOrThrow<Member, UUID, Member>(badRequest("이미 등록된 전화번호입니다.")) { save(Member.from(request)) })
 
     @Transactional
     fun updateMember(id: UUID, request: MemberRequest): MemberResponse {
         val member = memberRepository.findByIdOrThrow(id, "존재하지 않는 회원입니다.")
-        memberRepository.flushOrThrow(badRequest("이미 등록된 전화번호입니다.")) { member.update(Member.of(request)) }
+        memberRepository.flushOrThrow(badRequest("이미 등록된 전화번호입니다.")) { member.update(Member.from(request)) }
         return MemberResponse.from(member)
     }
 

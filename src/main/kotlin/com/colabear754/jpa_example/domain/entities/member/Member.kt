@@ -24,7 +24,7 @@ class Member(
     lastModifiedBy: String? = null
 ) : BaseEntity(createdBy = createdBy, lastModifiedBy = lastModifiedBy) {
     companion object {
-        fun of(request: MemberRequest): Member {
+        fun from(request: MemberRequest): Member {
             return Member(
                 name = request.name,
                 age = request.age,
