@@ -3,7 +3,6 @@ package com.colabear754.jpa_example.domain.entities.item
 import com.colabear754.jpa_example.dto.item.ItemRequest
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
-import java.time.LocalDateTime
 
 @Entity
 class Album(
@@ -18,13 +17,9 @@ class Album(
     lastModifiedBy: String
 ) : Item(name, price, stockQuantity, createdBy, lastModifiedBy) {
     override fun change(request: ItemRequest) {
-        name = request.name
-        price = request.price
-        stockQuantity = request.stockQuantity
         artist = request.additionalProperties["artist"] ?: artist
         etc = request.additionalProperties["etc"] ?: etc
-        lastModifiedBy = request.requestor
-        lastModifiedDate = LocalDateTime.now()
+        super.change(request)
     }
 
     override fun toString(): String {

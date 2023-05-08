@@ -17,12 +17,9 @@ class Movie(
     lastModifiedBy: String
 ) : Item(name, price, stockQuantity, createdBy, lastModifiedBy) {
     override fun change(request: ItemRequest) {
-        name = request.name
-        price = request.price
-        stockQuantity = request.stockQuantity
         director = request.additionalProperties["director"] ?: director
         actor = request.additionalProperties["actor"] ?: actor
-        lastModifiedBy = request.requestor
+        super.change(request)
     }
 
     override fun toString(): String {

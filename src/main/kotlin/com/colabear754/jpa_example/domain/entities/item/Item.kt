@@ -5,7 +5,6 @@ import com.colabear754.jpa_example.domain.entities.BaseEntity
 import com.colabear754.jpa_example.domain.entities.item.category.Category
 import com.colabear754.jpa_example.dto.item.ItemRequest
 import com.colabear754.jpa_example.exceptions.NotEnoughStockException
-import com.colabear754.jpa_example.util.badRequest
 import jakarta.persistence.*
 import java.time.LocalDateTime
 import java.util.*
@@ -49,12 +48,11 @@ abstract class Item(
     }
 
     fun change(request: ItemRequest) {
-        when (this) {
-            is Book -> change(request)
-            is Album -> change(request)
-            is Movie -> change(request)
-            else -> throw badRequest("잘못된 상품 정보입니다.")
-        }
+        name = request.name
+        price = request.price
+        stockQuantity = request.stockQuantity
+        lastModifiedBy = request.requestor
+        lastModifiedDate = LocalDateTime.now()
     }
 
     override fun toString(): String {
