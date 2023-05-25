@@ -22,7 +22,8 @@ class DeliveryServiceTest @Autowired constructor(
 ) {
    @AfterEach
     fun clear() {
-         deliveryRepository.deleteAll()
+        orderRepository.deleteAllInBatch()
+        deliveryRepository.deleteAllInBatch()
     }
 
     @Test

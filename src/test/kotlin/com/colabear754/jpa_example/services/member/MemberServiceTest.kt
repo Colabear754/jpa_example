@@ -5,7 +5,6 @@ import com.colabear754.jpa_example.domain.entities.member.Member
 import com.colabear754.jpa_example.domain.value.Address
 import com.colabear754.jpa_example.dto.member.MemberRequest
 import com.colabear754.jpa_example.repositories.member.MemberRepository
-import com.colabear754.jpa_example.repositories.member.order.OrderRepository
 import org.assertj.core.api.AssertionsForInterfaceTypes.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
@@ -16,13 +15,11 @@ import java.util.*
 @TestContainer
 class MemberServiceTest @Autowired constructor(
     private val memberService: MemberService,
-    private val memberRepository: MemberRepository,
-    private val orderRepository: OrderRepository
+    private val memberRepository: MemberRepository
 ) {
     @AfterEach
     fun clear() {
-        orderRepository.deleteAll()
-        memberRepository.deleteAll()
+        memberRepository.deleteAllInBatch()
     }
 
     @Test

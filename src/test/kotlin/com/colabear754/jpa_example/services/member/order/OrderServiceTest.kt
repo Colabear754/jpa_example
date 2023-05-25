@@ -29,10 +29,10 @@ class OrderServiceTest @Autowired constructor(
 ) {
     @AfterEach
     fun clear() {
-        orderItemRepository.deleteAll()
-        itemRepository.deleteAll()
-        orderRepository.deleteAll()
-        memberRepository.deleteAll()
+        orderItemRepository.deleteAllInBatch()
+        itemRepository.deleteAllInBatch()
+        orderRepository.deleteAllInBatch()
+        memberRepository.deleteAllInBatch()
     }
 
     @Test

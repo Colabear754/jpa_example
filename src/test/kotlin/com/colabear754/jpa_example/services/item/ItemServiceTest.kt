@@ -28,10 +28,7 @@ class ItemServiceTest @Autowired constructor(
 ) {
     @AfterEach
     fun clear() {
-        movieRepository.deleteAll()
-        bookRepository.deleteAll()
-        albumRepository.deleteAll()
-        itemRepository.deleteAll()
+        itemRepository.deleteAllInBatch()
     }
 
     @Test
